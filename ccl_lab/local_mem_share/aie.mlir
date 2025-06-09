@@ -5,7 +5,7 @@ module @tutorial_3 {
     // 2 tiles in row 4 (col 1 and col 2)
     // even rows have local memory to its left
     %tile14 = aie.tile(1, 4)
-    %tile24 = aie.tile(1, 3)
+    %tile24 = aie.tile(2, 4)
 
     // Declare local memory of tile(2,4) which is shared with tile(1,4)
     %buf = aie.buffer(%tile24) { sym_name = "a24" } : memref<256xi32>
