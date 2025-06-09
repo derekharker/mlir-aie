@@ -1,20 +1,3 @@
-//===- aie.mlir ------------------------------------------------*- MLIR -*-===//
-//
-// This file is licensed under the Apache License v2.0 with LLVM Exceptions.
-// See https://llvm.org/LICENSE.txt for license information.
-// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
-//
-// Copyright (C) 2022, Advanced Micro Devices, Inc.
-//
-//===----------------------------------------------------------------------===//
-
-// aiecc.py -j4 -%VitisSysrootFlag% --host-target=%aieHostTargetTriplet% %s -I%aie_runtime_lib%/test_lib/include %extraAieCcFlags% -L%aie_runtime_lib%/test_lib/lib -ltest_lib %S/test.cpp -o tutorial-3.exe
-
-// REQUIRES: valid_xchess_license
-// RUN: make -f %S/Makefile
-// RUN: %run_on_board ./tutorial-3.exe
-// RUN: make -f %S/Makefile clean
-
 // Declare this MLIR module. A wrapper that can contain all
 // AIE tiles, buffers, and data movement
 module @tutorial_3 {
