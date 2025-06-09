@@ -28,11 +28,11 @@ clean:
 # Additional make targets for tutorial exercises
 #------------------------------------------------------------------------------
 tutorial-2c_perf.exe: ./answers/test_perf.cpp aie.mlir
-	aiecc.py -j4 $(AIECC_FLAGS) $(word 2,$^) $(AIECC_HOST_FLAGS) ./$< -o $@
+	aiecc.py -j4 $(AIECC_FLAGS) $(word 2,$^) $(AIECC_HOST_FLAGS) $< -o $@
 
 tutorial-2c_empty_perf.exe: ./answers/test_perf.cpp ./answers/aie_empty.mlir
-	aiecc.py -j4 $(AIECC_FLAGS) $(word 2,$^) $(AIECC_HOST_FLAGS) ./$< -o $@
+	aiecc.py -j4 $(AIECC_FLAGS) $(word 2,$^) $(AIECC_HOST_FLAGS) $< -o $@
 
 tutorial-2c_real_empty_perf.exe: ./answers/test_perf.cpp ./answers/aie_real_empty.mlir
-	aiecc.py -j4 $(AIECC_FLAGS) $(word 2,$^) $(AIECC_HOST_FLAGS) ./$< -o $@
+	aiecc.py -j4 $(AIECC_FLAGS) $(word 2,$^) $(AIECC_HOST_FLAGS) $< -o $@
 
