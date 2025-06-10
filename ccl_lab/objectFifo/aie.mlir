@@ -5,11 +5,7 @@ module @tutorial_3 {
         // even rows have local memory to its left
         %tile14 = aie.tile(1, 3)
         %tile24 = aie.tile(2, 3)
-
-        // Declare an object FIFO between the producer tile (1,4) and consumer tile (2,4).
-        // The size of the object FIFO, i.e. its number of elements, is 1.
-        // Objects, i.e. allocated memory elements, have type memref<256xi32>
-        // These tiles share memory between them.
+        
         aie.objectfifo @of (%tile14, {%tile24}, 2 : i32) : !aie.objectfifo<memref<256xi32>>
 
         // This lock will be used to gate when our 2nd core is done

@@ -3,7 +3,7 @@ MLIR_AIE_DIR := /home/dwharker/mlir-aie
 VITIS_SYSROOT := /tools/Xilinx/Vitis/2023.2/gnu/aarch64/lin/aarch64-linux/aarch64-xilinx-linux
 
 # Change this line to switch test mode
-TEST_FILE := test2.cpp
+TEST_FILE := test.cpp
 # TEST_FILE := test_perf.cpp
 
 # === Derived Paths ===
