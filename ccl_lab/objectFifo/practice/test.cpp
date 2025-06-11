@@ -62,15 +62,10 @@ int main(int argc, char *argv[]) {
     printf("Acquired objectFifo buff 0 from tile(5, 4)\n");
   else
     printf("Timed out (1000) waiting for objectFifo buff 0 from tile(5, 4)\n");
-
-  if (mlir_aie_acquire_of_cons_lock_1(_xaie, 0, 1000) == XAIE_OK)
-    printf("Acquired objectFifo buff 1 from tile(5, 4)\n");
-  else
-    printf("Timed out (1000) waiting for objectFifo buff 1 from tile(5, 4)\n");
   
   mlir_aie_check("Checking buff_0[5] = 19", mlir_aie_read_buffer_of_cons_buff_0(_xaie, 5), 19, errors);
 
-  mlir_aie_check("Checking buff_1[2] = 6", mlir_aie_read_buffer_of_cons_buff_1(_xaie, 2), 6, errors);
+  mlir_aie_check("Checking buff_1[2] = 6", mlir_aie_read_buffer_of_buff_1(_xaie, 2), 6, errors);
 
   // Print Pass/Fail result of our test
   int res = 0;

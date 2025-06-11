@@ -6,7 +6,7 @@ module @practice {
         aie.objectfifo @of (%tile13, {%tile54}, 1 : i32) : !aie.objectfifo<memref<256xi32>>
 
         %core13 = aie.core(%tile13) {
-            %inputSubview = aie.objectfifo.acquire @of (Produce, 3) : !aie.objectfifosubview<memref<256xi32>>
+            %inputSubview = aie.objectfifo.acquire @of (Produce, 2) : !aie.objectfifosubview<memref<256xi32>>
 
             %input = aie.objectfifo.subview.access %inputSubview[0] : !aie.objectfifosubview<memref<256xi32>> -> memref<256xi32>
             %input2 = aie.objectfifo.subview.access %inputSubview[1] : !aie.objectfifosubview<memref<256xi32>> -> memref<256xi32>
@@ -19,12 +19,12 @@ module @practice {
             %idx2 = arith.constant 2 : index
             memref.store %val2, %input2[%idx2] : memref<256xi32>
 
-            aie.objectfifo.release @of (Produce, 3)
+            aie.objectfifo.release @of (Produce, 2)
             aie.end
         }
 
         %core54 = aie.core(%tile54) {
-            %inputSubview = aie.objectfifo.acquire @of (Consume, 2) : !aie.objectfifosubview<memref<256xi32>>
+            %inputSubview = aie.objectfifo.acquire @of (Consume, 1) : !aie.objectfifosubview<memref<256xi32>>
 
             %input = aie.objectfifo.subview.access %inputSubview[0] : !aie.objectfifosubview<memref<256xi32>> -> memref<256xi32>
 
@@ -36,7 +36,7 @@ module @practice {
 
             memref.store %d2, %input[%idx] : memref<256xi32>
 
-            aie.objectfifo.release @of (Consume, 2)
+            aie.objectfifo.release @of (Consume, 1)
             aie.end
         }
     }
