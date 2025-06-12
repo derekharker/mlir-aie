@@ -22,10 +22,9 @@ module @tutorial_2a {
         // Acquire lock right when core starts
         aie.use_lock(%lock14_0, "Acquire", 0)
 
-		%val = arith.constant 214 : i32 // declare a constant (int32)
+		%val = arith.constant 28 : i32 // declare a constant (int32)
 		%idx = arith.constant 3 : index // declare a constant (index)
-        %2 = arith.addi %val, %val : i32
-		memref.store %2, %buf[%idx] : memref<256xi32> // store val in buf[3]
+		memref.store %val, %buf[%idx] : memref<256xi32> // store val in buf[3]
 
         // Release acquired lock at end of program.
         // This can be used by host to mark beginning/end of a program or

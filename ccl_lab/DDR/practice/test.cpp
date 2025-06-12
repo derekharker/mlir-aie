@@ -13,7 +13,7 @@
 #include "aie_inc.cpp"
 
 int main(int argc, char *argv[]) {
-  printf("Tutorial-5 test start.\n");
+  printf("Practice 5 test start.\n");
 
   aie_libxaie_ctx_t *_xaie = mlir_aie_init_libxaie();
   mlir_aie_init_device(_xaie);

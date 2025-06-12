@@ -3,11 +3,11 @@ MLIR_AIE_DIR := /home/dwharker/mlir-aie
 VITIS_SYSROOT := /tools/Xilinx/Vitis/2023.2/gnu/aarch64/lin/aarch64-linux/aarch64-xilinx-linux
 
 # Change this line to switch test mode
-TEST_FILE := test_perf.cpp
+TEST_FILE := test.cpp
 # TEST_FILE := test_perf.cpp
 
 # === Derived Paths ===
-COMMON_SRC := $(MLIR_AIE_DIR)/ccl_lab/basic_buff
+COMMON_SRC := $(MLIR_AIE_DIR)/ccl_lab/packet
 MLIR_FILE := $(COMMON_SRC)/aie.mlir
 TEST_PATH := $(COMMON_SRC)/$(TEST_FILE)
 
@@ -25,8 +25,14 @@ AARCH64_LIBS := \
   -L$(VITIS_SYSROOT)/usr/lib/aarch64-xilinx-linux/12.2.0 \
   -ltest_lib -lxaiengine
 
-X86_INCLUDES := -I$(MLIR_AIE_DIR)/install/runtime_lib/x86_64/test_lib/include
-X86_LIBS := -L$(MLIR_AIE_DIR)/install/runtime_lib/x86_64/test_lib/lib -ltest_lib
+X86_INCLUDES := \
+  -I$(MLIR_AIE_DIR)/install/runtime_lib/x86_64/test_lib/include \
+  -I$(MLIR_AIE_DIR)/install/runtime_lib/x86_64/xaiengine/include \
+
+X86_LIBS := \
+  -L$(MLIR_AIE_DIR)/install/runtime_lib/x86_64/test_lib/lib \
+  -L$(MLIR_AIE_DIR)/install/runtime_lib/x86_64/xaiengine/lib \
+  -ltest_lib -lxaiengine
 
 # === Compiler Settings ===
 CXX := aarch64-linux-gnu-g++
@@ -43,7 +49,12 @@ sim:
 
 exe:
 	$(CXX) $(TEST_PATH) -o host.exe \
-	-I./aie.mlir.prj $(AARCH64_INCLUDES) $(AARCH64_LIBS) $(CXXFLAGS)
+	-I./aie.mlir.prj $(AARCH64_INCLUDES) \
+	$(AARCH64_LIBS) \
+	/home/dwharker/mlir-aie/install/runtime_lib/aarch64/test_lib/lib/libmemory_allocator_ion.a \
+	$(CXXFLAGS)
+
+
 
 clean:
 	rm -rf aie.mlir.prj *elf core* *log pl_sample_counts foo.vcd *exe aiesimulator_output sim .AIE_SIM_CMD_LINE_OPTIONS

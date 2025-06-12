@@ -26,7 +26,7 @@ module @tutorial_5 {
         // Register the external memory pointers to the object FIFOs.
         aie.objectfifo.register_external_buffers @of_in (%tile70, {%ext_buf70_in}) : (memref<256xi32>)
         aie.objectfifo.register_external_buffers @of_out (%tile70, {%ext_buf70_out}) : (memref<256xi32>)
-
+        
         // Define core algorithm for tile(3,4) which reads value set by tile(1,4)
         // buf[5] = buf[3] + 100
         %core34 = aie.core(%tile34) {
