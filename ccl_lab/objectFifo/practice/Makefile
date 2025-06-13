@@ -4,7 +4,6 @@ VITIS_SYSROOT := /tools/Xilinx/Vitis/2023.2/gnu/aarch64/lin/aarch64-linux/aarch6
 
 # Change this line to switch test mode
 TEST_FILE := test.cpp
-# TEST_FILE := test_perf.cpp
 
 # === Derived Paths ===
 COMMON_SRC := $(MLIR_AIE_DIR)/ccl_lab/objectFifo/practice
