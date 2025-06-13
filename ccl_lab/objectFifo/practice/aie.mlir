@@ -1,7 +1,7 @@
 module @practice {
     aie.device(xcvc1902) {
         %tile13 = aie.tile(1, 3)
-        %tile54 = aie.tile(5, 4)
+        %tile54 = aie.tile(49, 1)
 
         aie.objectfifo @of (%tile13, {%tile54}, 1 : i32) : !aie.objectfifo<memref<256xi32>>
 

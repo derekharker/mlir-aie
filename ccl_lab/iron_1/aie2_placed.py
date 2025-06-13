@@ -20,16 +20,15 @@ def mlir_aie_design():
 
         # Tile(s) declarations
         ComputeTile1 = tile(1, 3)
-        ComputeTile2 = tile(2, 3)
-        ComputeTile3 = tile(2, 4)
 
         data_size = 48
         data_ty = np.ndarray[(data_size,), np.dtype[np.int32]]
 
+        local = buffer(ComputeTile1, data_ty, name="local")
+
         # Compute core declarations
         @core(ComputeTile1)
         def core_body():
-            local = buffer(ComputeTile1, data_ty, name="local")
             for i in range_(data_size):
                 local[i] = 0
 
