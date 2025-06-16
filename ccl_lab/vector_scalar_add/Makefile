@@ -27,11 +27,15 @@ AARCH64_LIBS := \
 X86_INCLUDES := \
   -I$(MLIR_AIE_DIR)/install/runtime_lib/x86_64/test_lib/include \
   -I$(MLIR_AIE_DIR)/install/runtime_lib/x86_64/xaiengine/include \
+  -I$(MLIR_AIE_DIR)/build/runtime_lib/x86_64/test_lib/include
 
 X86_LIBS := \
   -L$(MLIR_AIE_DIR)/install/runtime_lib/x86_64/test_lib/lib \
   -L$(MLIR_AIE_DIR)/install/runtime_lib/x86_64/xaiengine/lib \
   -ltest_lib -lxaiengine
+
+XRT_LIBS := \
+  -I/opt/xilinx/xrt/include
 
 # === Compiler Settings ===
 CXX := aarch64-linux-gnu-g++
@@ -44,12 +48,13 @@ elf:
 
 sim:
 	aiecc.py -j4 --xchesscc --xbridge --aiesim $(MLIR_FILE) \
-	$(X86_INCLUDES) $(X86_LIBS) $(TEST_PATH)
+	$(XRT_LIBS) $(X86_INCLUDES) $(X86_LIBS) $(TEST_PATH)
 
 exe:
 	$(CXX) $(TEST_PATH) -o host.exe \
 	-I./aie.mlir.prj $(AARCH64_INCLUDES) \
 	$(AARCH64_LIBS) \
+  $(XRT_LIBS) \
 	/home/dwharker/mlir-aie/install/runtime_lib/aarch64/test_lib/lib/libmemory_allocator_ion.a \
 	$(CXXFLAGS)
 

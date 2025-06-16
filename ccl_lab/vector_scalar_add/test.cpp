@@ -1,151 +1,59 @@
-//===- test.cpp -------------------------------------------000---*- C++ -*-===//
-//
-// This file is licensed under the Apache License v2.0 with LLVM Exceptions.
-// See https://llvm.org/LICENSE.txt for license information.
-// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
-//
-// Copyright (C) 2023, Advanced Micro Devices, Inc.
-//
-//===----------------------------------------------------------------------===//
+#include "test_library.h"
+#include <cassert>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <sys/mman.h>
+#include <thread>
+#include <unistd.h>
+#include <xaiengine.h>
 
-#include "cxxopts.hpp"
-#include <cstdint>
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <vector>
-
-#include "xrt/xrt_bo.h"
-#include "xrt/xrt_device.h"
-#include "xrt/xrt_kernel.h"
-
-#include "test_utils.h"
+#include "aie_inc.cpp"
 
 int main(int argc, const char *argv[]) {
-  // ------------------------------------------------------
-  // Parse program arguments
-  // ------------------------------------------------------
-  cxxopts::Options options("Vector Scalar Add Test");
-  cxxopts::ParseResult vm;
-  test_utils::add_default_options(options);
+  printf("Vector scalar add test start.\n");
 
-  test_utils::parse_options(argc, argv, options, vm);
-  int verbosity = vm["verbosity"].as<int>();
-  int do_verify = vm["verify"].as<bool>();
-  int n_iterations = vm["iters"].as<int>();
-  int n_warmup_iterations = vm["warmup"].as<int>();
-  int trace_size = vm["trace_sz"].as<int>();
-
-  constexpr int IN_SIZE = 1024;
-  constexpr int OUT_SIZE = 1024;
-
-  // Load instruction sequence
-  std::vector<uint32_t> instr_v =
-      test_utils::load_instr_binary(vm["instr"].as<std::string>());
-  if (verbosity >= 1)
-    std::cout << "Sequence instr count: " << instr_v.size() << "\n";
-
-  // ------------------------------------------------------
-  // Get device, load the xclbin & kernel and register them
-  // ------------------------------------------------------
-  // Get a device handle
-  unsigned int device_index = 0;
-  auto device = xrt::device(device_index);
-
-  // Load the xclbin
-  if (verbosity >= 1)
-    std::cout << "Loading xclbin: " << vm["xclbin"].as<std::string>() << "\n";
-  auto xclbin = xrt::xclbin(vm["xclbin"].as<std::string>());
-
-  // Load the kernel
-  if (verbosity >= 1)
-    std::cout << "Kernel opcode: " << vm["kernel"].as<std::string>() << "\n";
-  std::string Node = vm["kernel"].as<std::string>();
-
-  // Get the kernel from the xclbin
-  auto xkernels = xclbin.get_kernels();
-  auto xkernel = *std::find_if(xkernels.begin(), xkernels.end(),
-                               [Node, verbosity](xrt::xclbin::kernel &k) {
-                                 auto name = k.get_name();
-                                 if (verbosity >= 1) {
-                                   std::cout << "Name: " << name << std::endl;
-                                 }
-                                 return name.rfind(Node, 0) == 0;
-                               });
-  auto kernelName = xkernel.get_name();
-
-  // Register xclbin
-  if (verbosity >= 1)
-    std::cout << "Registering xclbin: " << vm["xclbin"].as<std::string>()
-              << "\n";
-  device.register_xclbin(xclbin);
-
-  // Get a hardware context
-  if (verbosity >= 1)
-    std::cout << "Getting hardware context.\n";
-  xrt::hw_context context(device, xclbin.get_uuid());
-
-  // Get a kernel handle
-  if (verbosity >= 1)
-    std::cout << "Getting handle to kernel:" << kernelName << "\n";
-  auto kernel = xrt::kernel(context, kernelName);
-
-  // ------------------------------------------------------
-  // Initialize input/ output buffer sizes and sync them
-  // ------------------------------------------------------
-
-  auto bo_instr = xrt::bo(device, instr_v.size() * sizeof(int),
-                          XCL_BO_FLAGS_CACHEABLE, kernel.group_id(1));
-  auto bo_inA = xrt::bo(device, IN_SIZE * sizeof(int32_t),
-                        XRT_BO_FLAGS_HOST_ONLY, kernel.group_id(3));
-  auto bo_out = xrt::bo(device, OUT_SIZE * sizeof(int32_t),
-                        XRT_BO_FLAGS_HOST_ONLY, kernel.group_id(4));
-
-  if (verbosity >= 1)
-    std::cout << "Writing data into buffer objects.\n";
-
-  uint32_t *bufInA = bo_inA.map<uint32_t *>();
-  std::vector<uint32_t> srcVecA;
-  for (int i = 0; i < IN_SIZE; i++)
-    srcVecA.push_back(i + 1);
-  memcpy(bufInA, srcVecA.data(), (srcVecA.size() * sizeof(uint32_t)));
-
-  void *bufInstr = bo_instr.map<void *>();
-  memcpy(bufInstr, instr_v.data(), instr_v.size() * sizeof(int));
-
-  bo_instr.sync(XCL_BO_SYNC_BO_TO_DEVICE);
-  bo_inA.sync(XCL_BO_SYNC_BO_TO_DEVICE);
-
-  if (verbosity >= 1)
-    std::cout << "Running Kernel.\n";
-  unsigned int opcode = 3;
-  auto run = kernel(opcode, bo_instr, instr_v.size(), bo_inA, bo_out);
-  run.wait();
-
-  bo_out.sync(XCL_BO_SYNC_BO_FROM_DEVICE);
-
-  uint32_t *bufOut = bo_out.map<uint32_t *>();
+  aie_libxaie_ctx_t *_xaie = mlir_aie_init_libxaie();
+  mlir_aie_init_device(_xaie);
+  mlir_aie_configure_cores(_xaie);
+  mlir_aie_configure_switchboxes(_xaie);
+  mlir_aie_configure_dmas(_xaie);
+  mlir_aie_initialize_locks(_xaie);
 
   int errors = 0;
 
-  for (uint32_t i = 0; i < OUT_SIZE; i++) {
-    uint32_t ref = i + 2;
-    if (*(bufOut + i) != ref) {
-      std::cout << "Error in output " << *(bufOut + i) << " != " << ref
-                << std::endl;
-      errors++;
-    } else {
-      std::cout << "Correct output " << *(bufOut + i) << " == " << ref
-                << std::endl;
-    }
+  for (int i = 0; i < 256; i++) {
+    mlir_aie_write_buffer_in0_buff_0(_xaie, i, 0);
   }
 
+  printf("Start cores\n");
+  mlir_aie_start_cores(_xaie);
+
+  if (mlir_aie_acquire_in0_lock_0(_xaie, 1, 1000) == XAIE_OK)
+    printf("Lock done.\n");
+  else
+    printf("Timed out (1000) waiting for lock.\n");
+
+
+  printf("Checking out buf[3] = 1.\n");
+  mlir_aie_check("After start cores:", mlir_aie_read_buffer_in0_buff_0(_xaie, 3), 1,
+                 errors);
+
+  // Print Pass/Fail result of our test
+  int res = 0;
   if (!errors) {
-    std::cout << "\nPASS!\n\n";
-    return 0;
+    printf("PASS!\n");
+    res = 0;
   } else {
-    std::cout << "\nfailed.\n\n";
-    return 1;
+    printf("Fail!\n");
+    res = -1;
   }
+
+  // Teardown and cleanup of AIE array
+  mlir_aie_deinit_libxaie(_xaie);
+
+  printf("Vector scalar add test done.\n");
+  return res;
 }
