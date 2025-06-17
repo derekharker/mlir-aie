@@ -18,11 +18,6 @@ def mlir_aie_design():
                 elem[i] += 5
             of_in.release(ObjectFifoPort.Produce, 1)
 
-        @core(B)
-        def core_body():
-            elems = of_in.acquire(ObjectFifoPort.Consume, 1)
-            of_in.release(ObjectFifoPort.Consume, 1)
-
 
 # Declares that subsequent code is in mlir-aie context
 with mlir_mod_ctx() as ctx:

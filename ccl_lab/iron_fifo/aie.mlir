@@ -18,12 +18,6 @@ module {
       aie.objectfifo.release @in(Produce, 1)
       aie.end
     }
-    %core_2_4 = aie.core(%tile_2_4) {
-      %0 = aie.objectfifo.acquire @in(Consume, 1) : !aie.objectfifosubview<memref<256xi32>>
-      %1 = aie.objectfifo.subview.access %0[0] : !aie.objectfifosubview<memref<256xi32>> -> memref<256xi32>
-      aie.objectfifo.release @in(Consume, 1)
-      aie.end
-    }
   }
 }
 

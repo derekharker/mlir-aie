@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
     printf("Timed out (1000) while trying to acquire lock24_0.\n");
 
   for(uint16_t i = 0; i < 195; i++)
-    mlir_aie_check("First core:", mlir_aie_read_buffer_in_buff_0(_xaie, i), 5, errors);
+    mlir_aie_check("First core:", mlir_aie_read_buffer_in_cons_buff_0(_xaie, i), 5, errors);
 
   // Print Pass/Fail result of our test
   int res = 0;
