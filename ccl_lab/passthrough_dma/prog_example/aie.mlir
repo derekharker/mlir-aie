@@ -7,15 +7,15 @@ module {
     %core_1_1 = aie.core(%tile_1_1) {
       %0 = aie.objectfifo.acquire @out(Produce, 1) : !aie.objectfifosubview<memref<10xi32>>
       %1 = aie.objectfifo.subview.access %0[0] : !aie.objectfifosubview<memref<10xi32>> -> memref<10xi32>
-      %2 = aie.objectfifo.acquire @back(Consume, 1) : !aie.objectfifosubview<memref<10xi32>>
-      %3 = aie.objectfifo.subview.access %2[0] : !aie.objectfifosubview<memref<10xi32>> -> memref<10xi32>
       %c2 = arith.constant 2 : index
       %c5_i32 = arith.constant 5 : i32
       memref.store %c5_i32, %1[%c2] : memref<10xi32>
+      aie.objectfifo.release @out(Produce, 1)
+      %2 = aie.objectfifo.acquire @back(Consume, 1) : !aie.objectfifosubview<memref<10xi32>>
+      %3 = aie.objectfifo.subview.access %2[0] : !aie.objectfifosubview<memref<10xi32>> -> memref<10xi32>
       %c5 = arith.constant 5 : index
       %c9_i32 = arith.constant 9 : i32
       memref.store %c9_i32, %3[%c5] : memref<10xi32>
-      aie.objectfifo.release @out(Produce, 1)
       aie.objectfifo.release @back(Consume, 1)
       aie.end
     }
