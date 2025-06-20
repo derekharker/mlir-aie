@@ -11,7 +11,7 @@ from aie.helpers.dialects.ext.scf import _for as range_
 import aie.utils.trace as trace_utils
 
 
-def vector_scal():
+def vector_mult():
     @device(AIEDevice.xcvc1902)
     def device_body():
         # define types
@@ -22,31 +22,28 @@ def vector_scal():
         ComputeTile2 = tile(0, 2)
 
         # AIE-array data movement with object fifos
-        of_in = object_fifo("in", ShimTile, ComputeTile2, 2, size)
-        of_factor = object_fifo("factor", ShimTile, ComputeTile2, 2, np.ndarray[(1,), np.dtype[np.int32]])
+        of_in1 = object_fifo("in1", ShimTile, ComputeTile2, 2, size)
+        of_in2 = object_fifo("in2", ShimTile, ComputeTile2, 2, size)
         of_out = object_fifo("out", ComputeTile2, ShimTile, 2, size)
 
 
         # Compute tile 2
         @core(ComputeTile2)
         def core_body():
-            factor = of_factor.acquire(ObjectFifoPort.Consume, 1)
-            
-            elemIn = of_in.acquire(ObjectFifoPort.Consume, 1)
-
-            
-
-            of_in.release(ObjectFifoPort.Consume, 1)
-            
-            of_factor.release(ObjectFifoPort.Consume, 1)
-
-            elemOut = of_out.acquire(ObjectFifoPort.Produce, 1)
-            for i in range_(64):
-                elemOut[i] = elemIn[i] * factor[0]
-            of_out.release(ObjectFifoPort.Produce, 1)
+            for _ in range_(sys.maxsize):
+                # Number of sub-vector "tile" iterations
+                for _ in range_(16):
+                    elem_in1 = of_in1.acquire(ObjectFifoPort.Consume, 1)
+                    elem_in2 = of_in2.acquire(ObjectFifoPort.Consume, 1)
+                    elem_out = of_out.acquire(ObjectFifoPort.Produce, 1)
+                    for i in range_(16):
+                        elem_out[i] = elem_in1[i] * elem_in2[i]
+                    of_in1.release(ObjectFifoPort.Consume, 1)
+                    of_in2.release(ObjectFifoPort.Consume, 1)
+                    of_out.release(ObjectFifoPort.Produce, 1)
 
 with mlir_mod_ctx() as ctx:
-    vector_scal()
+    vector_mult()
     res = ctx.module.operation.verify()
     if res == True:
         print(ctx.module)

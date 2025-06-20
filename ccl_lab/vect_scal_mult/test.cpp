@@ -37,8 +37,9 @@ int main(int argc, char *argv[]) {
   // Clear buffer data memory
   for (int i = 0; i < 64; i++) {
     mlir_aie_write_buffer_in_cons_buff_0(_xaie, i, i);
+    mlir_aie_write_buffer_out_buff_0(_xaie, i, 5);
   }
-  mlir_aie_write_buffer_factor_cons_buff_0(_xaie, 0, 1);
+  mlir_aie_write_buffer_factor_cons_buff_0(_xaie, 0, 2);
 
   // Helper function to enable all AIE cores
   printf("Start cores\n");
@@ -48,7 +49,7 @@ int main(int argc, char *argv[]) {
   for (int i = 0; i < 64; i++) {
     mlir_aie_check("in buffer: ", mlir_aie_read_buffer_in_cons_buff_0(_xaie, i), i, errors);
   }
-  mlir_aie_check("factor buffer: ", mlir_aie_read_buffer_factor_cons_buff_0(_xaie, 0), 1, errors)
+  mlir_aie_check("factor buffer: ", mlir_aie_read_buffer_factor_cons_buff_0(_xaie, 0), 2, errors)
 
   if (mlir_aie_acquire_out_lock_0(_xaie, 0, 3000) == XAIE_OK)
     printf("Acquired lock\n");
@@ -56,7 +57,7 @@ int main(int argc, char *argv[]) {
     printf("Didn't acquire lock\n");
 
   for (int i = 0; i < 64; i++) {
-		mlir_aie_check("Out buffer: ", mlir_aie_read_buffer_out_buff_0(_xaie, i), i * 1, errors);
+		mlir_aie_check("Out buffer: ", mlir_aie_read_buffer_out_buff_0(_xaie, i), 10, errors);
 	}
 
 

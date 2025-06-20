@@ -36,33 +36,33 @@ int main(int argc, char *argv[]) {
 
   // Clear buffer data memory
   for (int i = 0; i < 10; i++) {
-    mlir_aie_write_buffer_in_buff_0(_xaie, i, i);
-    mlir_aie_write_buffer_pass_buff_0(_xaie, i, i);
+    mlir_aie_write_buffer_in1_buff_0(_xaie, i, i);
+    mlir_aie_write_buffer_in2_buff_0(_xaie, i, i);
   }
 
   mlir_aie_start_cores(_xaie);
 
-  if (mlir_aie_acquire_in_cons_lock_0(_xaie, 0, 1000) == XAIE_OK)
+  if (mlir_aie_acquire_in1_cons_lock_0(_xaie, 0, 1000) == XAIE_OK)
     printf("Acquired lock 1\n");
 
-  if (mlir_aie_acquire_pass_lock_0(_xaie, 0, 2000) == XAIE_OK)
+  if (mlir_aie_acquire_out_lock_0(_xaie, 0, 2000) == XAIE_OK)
     printf("Acquired lock 2\n");
 
-  if (mlir_aie_acquire_pass_cons_lock_0(_xaie, 0, 3000) == XAIE_OK)
+  if (mlir_aie_acquire_out_cons_lock_0(_xaie, 0, 3000) == XAIE_OK)
     printf("Acquired lock 3\n");
 
 
-  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_in_cons_buff_0(_xaie, 2)
+  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_in1_cons_buff_0(_xaie, 2)
                     , 5, errors);
-  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_in_cons_buff_0(_xaie, 1)
+  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_in2_cons_buff_0(_xaie, 1)
                     , 4, errors);
 
-  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_pass_cons_buff_0(_xaie, 3)
+  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_out_cons_buff_0(_xaie, 3)
                     , 1, errors);
 
   //Checking if copy worked
 
-  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_pass_cons_buff_0(_xaie, 1)
+  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_out_cons_buff_0(_xaie, 1)
                     , 4, errors);
 
   // Print Pass/Fail result of our test
