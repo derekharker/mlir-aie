@@ -22,21 +22,15 @@ module {
       %3 = aie.objectfifo.subview.access %2[0] : !aie.objectfifosubview<memref<64xi32>> -> memref<64xi32>
       %4 = aie.objectfifo.acquire @out(Produce, 1) : !aie.objectfifosubview<memref<64xi32>>
       %5 = aie.objectfifo.subview.access %4[0] : !aie.objectfifosubview<memref<64xi32>> -> memref<64xi32>
-      %c1 = arith.constant 1 : index
-      %c4_i32 = arith.constant 4 : i32
-      memref.store %c4_i32, %1[%c1] : memref<64xi32>
       %c0 = arith.constant 0 : index
       %c10 = arith.constant 10 : index
-      %c1_0 = arith.constant 1 : index
-      scf.for %arg0 = %c0 to %c10 step %c1_0 {
+      %c1 = arith.constant 1 : index
+      scf.for %arg0 = %c0 to %c10 step %c1 {
         %6 = memref.load %1[%arg0] : memref<64xi32>
         %7 = memref.load %3[%arg0] : memref<64xi32>
         %8 = arith.muli %6, %7 : i32
         memref.store %8, %5[%arg0] : memref<64xi32>
       }
-      %c6 = arith.constant 6 : index
-      %c3_i32 = arith.constant 3 : i32
-      memref.store %c3_i32, %5[%c6] : memref<64xi32>
       aie.objectfifo.release @in1(Consume, 1)
       aie.objectfifo.release @in2(Consume, 1)
       aie.objectfifo.release @out(Produce, 1)

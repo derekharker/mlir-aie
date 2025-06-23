@@ -1,5 +1,3 @@
-//===----------------------------------------------------------------------===//
-
 #include "test_library.h"
 #include <cassert>
 #include <cmath>
@@ -14,8 +12,8 @@
 
 #include "aie_inc.cpp"
 
-int main(int argc, char *argv[]) {
-  printf("Passthrough Kernel test start.\n");
+int main(int argc, const char *argv[]) {
+  printf("IRON local mem test start.\n");
 
   aie_libxaie_ctx_t *_xaie = mlir_aie_init_libxaie();
   mlir_aie_init_device(_xaie);
@@ -26,16 +24,7 @@ int main(int argc, char *argv[]) {
 
   int errors = 0;
 
-  // Clear buffer data memory
-  for (int i = 0; i < 256; i++) {
-    // mlir_aie_write_buffer_a14(_xaie, i, 0);
-    // mlir_aie_write_buffer_a34(_xaie, i, 0);
-  }
-
-  // Helper function to enable all AIE cores
-  printf("Start cores\n");
-  mlir_aie_start_cores(_xaie);
-
+  
 
   // Print Pass/Fail result of our test
   int res = 0;
@@ -50,6 +39,6 @@ int main(int argc, char *argv[]) {
   // Teardown and cleanup of AIE array
   mlir_aie_deinit_libxaie(_xaie);
 
-  printf("Passthrough Kernel test done.\n");
+  printf("IRON local mem test done.\n");
   return res;
 }

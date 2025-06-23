@@ -47,7 +47,7 @@ int main() {
   int errors = 0;
   for (int i = 0; i < 256; i++) {
     int expected = i * i;
-    uint32_t actual = mlir_aie_read_buffer_out_buff_0(_xaie, i);
+    uint32_t actual = mlir_aie_read_buffer_out_cons_buff_0(_xaie, i);
     if (actual != expected) {
       printf("Mismatch at %d: got %d, expected %d\n", i, actual, expected);
       errors++;

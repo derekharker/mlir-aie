@@ -24,7 +24,7 @@ def my_vector_bias_add():
         all_data_ty = np.ndarray[(PROBLEM_SIZE,), np.dtype[np.int32]]
 
         # Tile declarations
-        ShimTile = tile(1, 0)
+        ShimTile = tile(3, 0)
         ComputeTile2 = tile(1, 1)
 
         # AIE-array data movement with object fifos
