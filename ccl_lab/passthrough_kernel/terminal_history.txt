@@ -1,0 +1,1000 @@
+ 1017  rm -rf ccl_lab/
+ 1018  git checkout ccl_lab
+ 1019  cd ccl_lab/
+ 1020  ls
+ 1021  cd DDR/
+ 1022  ls
+ 1023  make all
+ 1024  ./aie.mlir.prj/aiesim.sh 
+ 1025  make clean
+ 1026  clear
+ 1027  make all
+ 1028  ./aie.mlir.prj/aiesim.sh 
+ 1029  make clean
+ 1030  clear
+ 1031  make all
+ 1032  make clean
+ 1033  code /home/dwharker/mlir-aie/
+ 1034  clear
+ 1035  cd ../packet/
+ 1036  make all
+ 1037  ./aie.mlir.prj/aiesim.sh 
+ 1038  make clean
+ 1039  make all
+ 1040  ./aie.mlir.prj/aiesim.sh 
+ 1041  make clean
+ 1042  cd ../basic_buff/
+ 1043  make all
+ 1044  ./aie.mlir.prj/aiesim.sh 
+ 1045  make all
+ 1046  ./aie.mlir.prj/aiesim.sh 
+ 1047  make clean
+ 1048  make all
+ 1049  ./aie.mlir.prj/aiesim.sh 
+ 1050  make all
+ 1051  ./aie.mlir.prj/aiesim.sh 
+ 1052  make all
+ 1053  ./aie.mlir.prj/aiesim.sh 
+ 1054  make all
+ 1055  ./aie.mlir.prj/aiesim.sh 
+ 1056  scp core_1_4.elf dwharker@CCL6:~
+ 1057  scp host.exe dwharker@CCL6:~
+ 1058  make clean
+ 1059  ls
+ 1060  make clean
+ 1061  clear
+ 1062  ls
+ 1063  clear
+ 1064  cd ~/mlir-aie/programming_guide/
+ 1065  ls
+ 1066  cd section-1/
+ 1067  ls
+ 1068  make
+ 1069  clear
+ 1070  python3 aie2_placed.py > aie.mlir
+ 1071  cp aie2_placed.py ~/mlir-aie/ccl_lab/iron
+ 1072  cp aie2_placed.py ~/mlir-aie/ccl_lab/iron/
+ 1073  cd ~/mlir-aie/ccl_lab/iron
+ 1074  ls
+ 1075  python3 aie2_placed.py > aie.mlir
+ 1076  make all
+ 1077  ./aie.mlir.prj/aiesim.sh 
+ 1078  make clean
+ 1079  python3 aie2_placed.py > aie.mlir
+ 1080  make all
+ 1081  ./aie.mlir.prj/aiesim.sh 
+ 1082  make clean
+ 1083  clear
+ 1084  cd ../iron_fifo
+ 1085  ls
+ 1086  python3 fifo.py > aie.mlir
+ 1087  make all
+ 1088  make clean
+ 1089  make all
+ 1090  ./aie.mlir.prj/aiesim.sh 
+ 1091  make all
+ 1092  ./aie.mlir.prj/aiesim.sh 
+ 1093  make all
+ 1094  ./aie.mlir.prj/aiesim.sh 
+ 1095  make all
+ 1096  ./aie.mlir.prj/aiesim.sh 
+ 1097  make all
+ 1098  ./aie.mlir.prj/aiesim.sh 
+ 1099  make all
+ 1100  ./aie.mlir.prj/aiesim.sh 
+ 1101  make all
+ 1102  ./aie.mlir.prj/aiesim.sh 
+ 1103  make all
+ 1104  ./aie.mlir.prj/aiesim.sh 
+ 1105  python3 fifo.py > aie.mlir
+ 1106  make all
+ 1107  ./aie.mlir.prj/aiesim.sh 
+ 1108  make all
+ 1109  ./aie.mlir.prj/aiesim.sh 
+ 1110  make all
+ 1111  ./aie.mlir.prj/aiesim.sh 
+ 1112  make all
+ 1113  clear
+ 1114  make clean
+ 1115  python3 fifo.py > aie.mlir
+ 1116  make all
+ 1117  ./aie.mlir.prj/aiesim.sh 
+ 1118  make all
+ 1119  python3 fifo.py > aie.mlir
+ 1120  make all
+ 1121  ./aie.mlir.prj/aiesim.sh 
+ 1122  python3 fifo.py > aie.mlir
+ 1123  make all
+ 1124  ./aie.mlir.prj/aiesim.sh 
+ 1125  make clean
+ 1126  make all
+ 1127  ./aie.mlir.prj/aiesim.sh 
+ 1128  python3 fifo.py > aie.mlir
+ 1129  make all
+ 1130  ./aie.mlir.prj/aiesim.sh 
+ 1131  clear
+ 1132  python3 fifo.py > aie.mlir
+ 1133  clear
+ 1134  python3 fifo.py > aie.mlir
+ 1135  make all
+ 1136  ./aie.mlir.prj/aiesim.sh 
+ 1137  make all
+ 1138  ./aie.mlir.prj/aiesim.sh 
+ 1139  make all
+ 1140  ./aie.mlir.prj/aiesim.sh 
+ 1141  make all
+ 1142  ./aie.mlir.prj/aiesim.sh 
+ 1143  python3 fifo.py > aie.mlir
+ 1144  make all
+ 1145  ./aie.mlir.prj/aiesim.sh 
+ 1146  clear
+ 1147  python3 fifo.py > aie.mlir
+ 1148  make all
+ 1149  ./aie.mlir.prj/aiesim.sh 
+ 1150  clear
+ 1151  python3 fifo.py > aie.mlir
+ 1152  make all
+ 1153  python3 fifo.py > aie.mlir
+ 1154  make all
+ 1155  ./aie.mlir.prj/aiesim.sh 
+ 1156  python3 fifo.py > aie.mlir
+ 1157  make all
+ 1158  ./aie.mlir.prj/aiesim.sh 
+ 1159  python3 fifo.py > aie.mlir
+ 1160  make all
+ 1161  ./aie.mlir.prj/aiesim.sh 
+ 1162  python3 fifo.py > aie.mlir
+ 1163  make all
+ 1164  ./aie.mlir.prj/aiesim.sh 
+ 1165  python3 fifo.py > aie.mlir
+ 1166  make all
+ 1167  ./aie.mlir.prj/aiesim.sh 
+ 1168  python3 fifo.py > aie.mlir
+ 1169  make all
+ 1170  ./aie.mlir.prj/aiesim.sh 
+ 1171  python fifo.py > aie.mlir
+ 1172  make all
+ 1173  ./aie.mlir.prj/aiesim.sh 
+ 1174  make all
+ 1175  ./aie.mlir.prj/aiesim.sh 
+ 1176  make all
+ 1177  ./aie.mlir.prj/aiesim.sh 
+ 1178  make all
+ 1179  ./aie.mlir.prj/aiesim.sh 
+ 1180  make all
+ 1181  ./aie.mlir.prj/aiesim.sh 
+ 1182  scp *.elf dwharker@CCL6:~/test
+ 1183  scp host.exe dwharker@CCL6:~/test
+ 1184  cd ~/mlir-aie/
+ 1185  ls
+ 1186  cd ccl_lab/
+ 1187  ls
+ 1188  cd iron_fifo/
+ 1189  ls
+ 1190  ls -a
+ 1191  cd ~/mlir-aie/
+ 1192  ls -a
+ 1193  python3 fifo.py > aie.mlir
+ 1194  make all
+ 1195  ./aie.mlir.prj/aiesim.sh 
+ 1196  python3 fifo.py > aie.mlir
+ 1197  make all
+ 1198  ./aie.mlir.prj/aiesim.sh 
+ 1199  python3 fifo.py > aie.mlir
+ 1200  make all
+ 1201  ./aie.mlir.prj/aiesim.sh 
+ 1202  python3 fifo.py > aie.mlir
+ 1203  make all
+ 1204  ./aie.mlir.prj/aiesim.sh 
+ 1205  python3 fifo.py > aie.mlir
+ 1206  make all
+ 1207  ./aie.mlir.prj/aiesim.sh 
+ 1208  python3 fifo.py > aie.mlir
+ 1209  make all
+ 1210  ./aie.mlir.prj/aiesim.sh 
+ 1211  make all
+ 1212  ./aie.mlir.prj/aiesim.sh 
+ 1213  make all
+ 1214  ./aie.mlir.prj/aiesim.sh 
+ 1215  make all
+ 1216  ./aie.mlir.prj/aiesim.sh 
+ 1217  make clean
+ 1218  cd ../basic_buff/
+ 1219  ls
+ 1220  cd ../objectFifo/practice/
+ 1221  make all
+ 1222  ./aie.mlir.prj/aiesim.sh 
+ 1223  cd mlir-aie/
+ 1224  code .
+ 1225  source /tools/Xilinx/Vitis/2023.2/settings64.sh
+ 1226  source /opt/xilinx/xrt/setup.sh
+ 1227  source utils/env_setup.sh install/ llvm/install/
+ 1228  source ironenv/bin/activate
+ 1229  cd ccl_lab/
+ 1230  clear
+ 1231  cd objectFifo/practice/
+ 1232  make clean
+ 1233  make all
+ 1234  ./aie.mlir.prj/aiesim.sh 
+ 1235  make all
+ 1236  ./aie.mlir.prj/aiesim.sh 
+ 1237  make all
+ 1238  make clean
+ 1239  clear
+ 1240  cd ~/mlir-aie/programming_guide/section-3
+ 1241  ls
+ 1242  mkdir ~/mlir-aie/vector_scalar_mult
+ 1243  cp aie2.py ~/mlir-aie/vector_scalar_mult/
+ 1244  cp test.cpp ~/mlir-aie/vector_scalar_mult/
+ 1245  cp vector_scalar_mul.cc ~/mlir-aie/vector_scalar_mult/
+ 1246  cd ~/mlir-aie/vector_scalar_mult/
+ 1247  ls
+ 1248  cd ..
+ 1249  ls
+ 1250  mv vector_scalar_mult/ ccl_lab/
+ 1251  ls
+ 1252  cd ccl_lab/
+ 1253  ls
+ 1254  cd vector_scalar_mult/
+ 1255  ls
+ 1256  cp ../iron_fifo/Makefile .
+ 1257  ls
+ 1258  clear
+ 1259  python3 aie2.py > aie.mlir
+ 1260  clear
+ 1261  python3 aie2.py > aie.mlir
+ 1262  clear
+ 1263  python3 aie2.py > aie.mlir
+ 1264  clear
+ 1265  python3 aie2.py > aie.mlir
+ 1266  clear
+ 1267  python3 aie2.py > aie.mlir
+ 1268  make all
+ 1269  find ~/mlir-aie/ -name "test_utils.h"
+ 1270  make all
+ 1271  ./aie.mlir.prj/aiesim.sh 
+ 1272  make clean
+ 1273  make all
+ 1274  make clean
+ 1275  clear
+ 1276  make all
+ 1277  clear
+ 1278  make all
+ 1279  make clean
+ 1280  clear
+ 1281  aiecc.py ~/mlir-aie/aie_kernels/aie2/scale.cc -o scale.o
+ 1282  aie-cc -c ~/mlir-aie/aie_kernels/aie2/scale.cc -o scale.o
+ 1283  aiecompiler -c ~/mlir-aie/aie_kernels/aie2/scale.cc -o scale.o
+ 1284  which aie-cc
+ 1285  clang++ -target aie   -DBIT_WIDTH=16   -I$XILINX_VITIS/aietools/include   -I$XILINX_VITIS/aietools/include/aie_api   -std=c++17   -c ~/mlir-aie/aie_kernels/aie2/scale.cc -o scale.o
+ 1286  which clang++
+ 1287  clang++ -DBIT_WIDTH=16   -I$XILINX_VITIS/aietools/include   -I$XILINX_VITIS/aietools/include/aie_api   -std=c++17   -c ~/mlir-aie/aie_kernels/aie2/scale.cc -o scale.o
+ 1288  cd /opt/xilinx/xrt/
+ 1289  ls
+ 1290  cd bin/
+ 1291  ls
+ 1292  cd ..
+ 1293  cd include/
+ 1294  ls
+ 1295  cd xrt
+ 1296  ls
+ 1297  cd mlir-aie/install/
+ 1298  find . -name "test_utils.h"
+ 1299  cd runtime_lib/
+ 1300  cd x86_64/
+ 1301  ls
+ 1302  cd test_lib/
+ 1303  ls
+ 1304  cd include/
+ 1305  ls
+ 1306  cd ..
+ 1307  cd lib
+ 1308  ls
+ 1309  cd ..
+ 1310  ls
+ 1311  cd src
+ 1312  ls
+ 1313  cd ..
+ 1314  ls
+ 1315  cd xaiengine/
+ 1316  ls
+ 1317  cd include/
+ 1318  ls
+ 1319  cd xaiengine/
+ 1320  ls
+ 1321  cd ..
+ 1322  cd ~/mlir-aie/
+ 1323  find . -name "test_utils.h"
+ 1324  ls
+ 1325  code mlir-aie/
+ 1326  cd mlir-aie/
+ 1327  source /tools/Xilinx/Vitis/2023.2/settings64.sh
+ 1328  source /opt/xilinx/xrt/setup.sh
+ 1329  source utils/env_setup.sh install/ llvm/install/
+ 1330  source ironenv/bin/activate
+ 1331  clear
+ 1332  cd ccl_lab/
+ 1333  mkdir vector_scalar_add
+ 1334  cd vector_scalar_mult/
+ 1335  make clean
+ 1336  cd ../vector_scalar_add/
+ 1337  python3 placed.py > aie.mlir
+ 1338  make all
+ 1339  source /opt/xilinx/xrt/setup.sh
+ 1340  make all
+ 1341  clear
+ 1342  make all
+ 1343  ./aie.mlir.prj/aiesim.sh 
+ 1344  make all
+ 1345  ./aie.mlir.prj/aiesim.sh 
+ 1346  make clean
+ 1347  clear
+ 1348  python3 placed.py > aie.mlir
+ 1349  make all
+ 1350  ./aie.mlir.prj/aiesim.sh 
+ 1351  make all
+ 1352  ./aie.mlir.prj/aiesim.sh 
+ 1353  make all
+ 1354  python3 placed.py > aie.mlir
+ 1355  clear
+ 1356  python3 placed.py > aie.mlir
+ 1357  make clean
+ 1358  clear
+ 1359  python3 placed.py > aie.mlir
+ 1360  clear
+ 1361  python3 placed.py > aie.mlir
+ 1362  clear
+ 1363  python3 placed.py > aie.mlir
+ 1364  clear
+ 1365  python3 placed.py > aie.mlir
+ 1366  ls
+ 1367  clear
+ 1368  make all
+ 1369  python3 placed.py > aie.mlir
+ 1370  make clean
+ 1371  ls
+ 1372  git add .
+ 1373  git add -a
+ 1374  git add -A
+ 1375  git commit -m"dma pass"
+ 1376  git push
+ 1377  clea
+ 1378  clear
+ 1379  ls
+ 1380  code mlir-aie/
+ 1381  source /tools/Xilinx/Vitis/2023.2/settings64.sh
+ 1382  source /opt/xilinx/xrt/setup.sh
+ 1383  cd mlir-aie/
+ 1384  source ironenv/bin/activate
+ 1385  source utils/env_setup.sh install/ llvm/install/
+ 1386  clear
+ 1387  cd ccl_lab/passthough_dma/
+ 1388  ls
+ 1389  python3 passthrough_dma.py > aie.mlir
+ 1390  make all
+ 1391  ./aie.mlir.prj/aiesim.sh 
+ 1392  make all
+ 1393  ./aie.mlir.prj/aiesim.sh 
+ 1394  python3 passthrough_dma.py > aie.mlir
+ 1395  make all
+ 1396  ./aie.mlir.prj/aiesim.sh 
+ 1397  python3 passthrough_dma.py > aie.mlir
+ 1398  make all
+ 1399  ./aie.mlir.prj/aiesim.sh 
+ 1400  make all
+ 1401  ./aie.mlir.prj/aiesim.sh 
+ 1402  python3 passthrough_dma.py > aie.mlir
+ 1403  make all
+ 1404  ./aie.mlir.prj/aiesim.sh 
+ 1405  python3 passthrough_dma.py > aie.mlir
+ 1406  make lal
+ 1407  make all
+ 1408  ./aie.mlir.prj/aiesim.sh 
+ 1409  make all
+ 1410  ./aie.mlir.prj/aiesim.sh 
+ 1411  make all
+ 1412  ./aie.mlir.prj/aiesim.sh 
+ 1413  make all
+ 1414  ./aie.mlir.prj/aiesim.sh 
+ 1415  make all
+ 1416  ./aie.mlir.prj/aiesim.sh 
+ 1417  make all
+ 1418  make all 
+ 1419  ./aie.mlir.prj/aiesim.sh 
+ 1420  make all
+ 1421  ./aie.mlir.prj/aiesim.sh 
+ 1422  make clean
+ 1423  python3 passthrough_dma.py > aie.mlir
+ 1424  make all
+ 1425  ./aie.mlir.prj/aiesim.sh 
+ 1426  make clean
+ 1427  clear
+ 1428  cd ../iron_fifo/
+ 1429  make all
+ 1430  ./aie.mlir.prj/aiesim.sh 
+ 1431  python3 fifo.py > aie.mlir
+ 1432  make all
+ 1433  ./aie.mlir.prj/aiesim.sh 
+ 1434  make all
+ 1435  ./aie.mlir.prj/aiesim.sh 
+ 1436  make clean
+ 1437  clear
+ 1438  cd ../passthrough_dma/
+ 1439  python3 passthrough_dma.py > aie.mlir
+ 1440  make all
+ 1441  ./aie.mlir.prj/aiesim.sh 
+ 1442  make all
+ 1443  ./aie.mlir.prj/aiesim.sh 
+ 1444  make all
+ 1445  ./aie.mlir.prj/aiesim.sh 
+ 1446  make all
+ 1447  ./aie.mlir.prj/aiesim.sh 
+ 1448  python3 passthrough_dma.py > aie.mlir
+ 1449  make all
+ 1450  ./aie.mlir.prj/aiesim.sh 
+ 1451  python3 passthrough_dma.py > aie.mlir
+ 1452  make all
+ 1453  ./aie.mlir.prj/aiesim.sh 
+ 1454  python3 passthrough_dma.py > aie.mlir
+ 1455  make all
+ 1456  ./aie.mlir.prj/aiesim.sh 
+ 1457  make all
+ 1458  ./aie.mlir.prj/aiesim.sh 
+ 1459  python3 passthrough_dma.py > aie.mlir
+ 1460  make all
+ 1461  ./aie.mlir.prj/aiesim.sh 
+ 1462  make all
+ 1463  ./aie.mlir.prj/aiesim.sh 
+ 1464  make all
+ 1465  ./aie.mlir.prj/aiesim.sh 
+ 1466  python3 passthrough_dma.py > aie.mlir
+ 1467  make all
+ 1468  ./aie.mlir.prj/aiesim.sh 
+ 1469  make all
+ 1470  ./aie.mlir.prj/aiesim.sh 
+ 1471  make all
+ 1472  ./aie.mlir.prj/aie`
+ 1473  source /tools/Xilinx/Vitis/2023.2/settings64.sh
+ 1474  source /opt/xilinx/xrt/setup.sh
+ 1475  cd mlir-aie/
+ 1476  source ironenv/bin/activate
+ 1477  source utils/env_setup.sh install/ llvm/install/
+ 1478  cd ccl_lab/passthrough_dma/
+ 1479  make all
+ 1480  ./aie.mlir.prj/aiesim.sh 
+ 1481  make all
+ 1482  ./aie.mlir.prj/aiesim.sh 
+ 1483  make all
+ 1484  ./aie.mlir.prj/aiesim.sh 
+ 1485  make all
+ 1486  ./aie.mlir.prj/aiesim.sh 
+ 1487  python3 passthrough_dma.py > aie.mlir
+ 1488  make all
+ 1489  reset
+ 1490  python3 passthrough_dma.py > aie.mlir
+ 1491  make all
+ 1492  ./aie.mlir.prj/aiesim.sh 
+ 1493  python3 passthrough_dma.py > aie.mlir
+ 1494  make all
+ 1495  reset
+ 1496  python3 passthrough_dma.py > aie.mlir
+ 1497  make all
+ 1498  ./aie.mlir.prj/aiesim.sh 
+ 1499  make all
+ 1500  ./aie.mlir.prj/aiesim.sh 
+ 1501  python3 passthrough_dma.py > aie.mlir
+ 1502  make all
+ 1503  ./aie.mlir.prj/aiesim.sh 
+ 1504  python3 passthrough_dma.py > aie.mlir
+ 1505  make all
+ 1506  ./aie.mlir.prj/aiesim.sh 
+ 1507  make all
+ 1508  ./aie.mlir.prj/aiesim.sh 
+ 1509  python3 passthrough_dma.py > aie.mlir
+ 1510  make all
+ 1511  python3 passthrough_dma.py > aie.mlir
+ 1512  make all
+ 1513  python3 passthrough_dma.py > aie.mlir
+ 1514  make all
+ 1515  python3 passthrough_dma.py > aie.mlir
+ 1516  make all
+ 1517  reset
+ 1518  python3 passthrough_dma.py > aie.mlir
+ 1519  make all
+ 1520  ./aie.mlir.prj/aiesim.sh 
+ 1521  scp host.exe dwharker@CCL6:~
+ 1522  scp *.elf dwharker@CCL6:~
+ 1523  clear
+ 1524  cd prog_example/
+ 1525  python3 dma.py > aie.mlir
+ 1526  make all
+ 1527  ./aie.mlir.prj/aiesim.sh 
+ 1528  make clean
+ 1529  cd mlir-aie/
+ 1530  ls
+ 1531  cd runtime_lib/
+ 1532  ls
+ 1533  cd test_lib/
+ 1534  ls
+ 1535  cat test_utils.cpp
+ 1536  clear
+ 1537  ls
+ 1538  cd ..
+ 1539  ls
+ 1540  cd aie_api/
+ 1541  ls
+ 1542  cd ..
+ 1543  ls
+ 1544  find . -name "passThrough.cc"
+ 1545  code mlir-aie/
+ 1546  source /tools/Xilinx/Vitis/2023.2/settings64.sh
+ 1547  source /opt/xilinx/xrt/setup.sh
+ 1548  cd mlir-aie/
+ 1549  source ironenv/bin/activate
+ 1550  source utils/env_setup.sh install/ llvm/install/
+ 1551  cd ccl_lab/
+ 1552  cd passthrough_dma/prog_example/
+ 1553  python3 dma.py > aie.mlir
+ 1554  make all
+ 1555  ./aie.mlir.prj/aiesim.sh 
+ 1556  python3 dma.py > aie.mlir
+ 1557  make all
+ 1558  ./aie.mlir.prj/aiesim.sh 
+ 1559  make clean
+ 1560  python3 dma2.py > aie.mlir
+ 1561  make all
+ 1562  python3 dma2.py > aie.mlir
+ 1563  python3 dma.py > aie.mlir
+ 1564  python3 dma2.py > aie.mlir
+ 1565  ./aie.mlir.prj/aiesim.sh 
+ 1566  make clean
+ 1567  python3 dma2.py > aie.mlir
+ 1568  make all
+ 1569  ./aie.mlir.prj/aiesim.sh 
+ 1570  make clean
+ 1571  clear
+ 1572  cd ../..
+ 1573  mkdir passthrough_kernel
+ 1574  cd passthrough_kernel/
+ 1575  python3 pass_kernel.py > aie.mlir
+ 1576  make all
+ 1577  make clean
+ 1578  cd ~/mlir-aie/programming_examples/basic/dma_transpose/
+ 1579  make
+ 1580  env use_placed=1 make
+ 1581  make generate_access_map 
+ 1582  ls
+ 1583  clear
+ 1584  make clean
+ 1585  make
+ 1586  cd ~/mlir-aie/ccl_lab/vect_scal_mult/
+ 1587  python3 mult.py > aie.mlir
+ 1588  make all
+ 1589  ./aie.mlir.prj/aiesim.sh 
+ 1590  python3 mult.py > aie.mlir
+ 1591  make all
+ 1592  reset
+ 1593  python3 mult.py > aie.mlir
+ 1594  make all
+ 1595  ./aie.mlir.prj/aiesim.sh 
+ 1596  make all
+ 1597  ./aie.mlir.prj/aiesim.sh 
+ 1598  make all
+ 1599  ./aie.mlir.prj/aiesim.sh 
+ 1600  python3 mult.py > aie.mlir
+ 1601  make all
+ 1602  ./aie.mlir.prj/aiesim.sh 
+ 1603  make all
+ 1604  ./aie.mlir.prj/aiesim.sh 
+ 1605  make all
+ 1606  ./aie.mlir.prj/aiesim.sh 
+ 1607  make all
+ 1608  ./aie.mlir.prj/aiesim.sh 
+ 1609  python3 mult.py > aie.mlir
+ 1610  make all
+ 1611  ./aie.mlir.prj/aiesim.sh 
+ 1612  make all
+ 1613  ./aie.mlir.prj/aiesim.sh 
+ 1614  python3 mult.py > aie.mlir
+ 1615  make all
+ 1616  ./aie.mlir.prj/aiesim.sh 
+ 1617  make clean
+ 1618  git status
+ 1619  clear
+ 1620  code mlir-aie/
+ 1621  source /tools/Xilinx/Vitis/2023.2/settings64.sh
+ 1622  source /opt/xilinx/xrt/setup.sh
+ 1623  cd mlir-aie/
+ 1624  source ironenv/bin/activate
+ 1625  source utils/env_setup.sh install/ llvm/install/
+ 1626  cd ccl_lab/vect_scal_mult/
+ 1627  make all
+ 1628  ./aie.mlir.prj/aiesim.sh 
+ 1629  make all
+ 1630  ./aie.mlir.prj/aiesim.sh 
+ 1631  python3 mult.py > aie.mlir
+ 1632  make all
+ 1633  ./aie.mlir.prj/aiesim.sh 
+ 1634  make all
+ 1635  ./aie.mlir.prj/aiesim.sh 
+ 1636  make all
+ 1637  ./aie.mlir.prj/aiesim.sh 
+ 1638  make all
+ 1639  ./aie.mlir.prj/aiesim.sh 
+ 1640  make all
+ 1641  ./aie.mlir.prj/aiesim.sh 
+ 1642  python3 mult.py > aie.mlir
+ 1643  make all
+ 1644  ./aie.mlir.prj/aiesim.sh 
+ 1645  python3 mult.py > aie.mlir
+ 1646  make all
+ 1647  ./aie.mlir.prj/aiesim.sh 
+ 1648  make clean
+ 1649  clear
+ 1650  cd ..
+ 1651  mkdir vect_vect_mult
+ 1652  cd vect_vect_mult/
+ 1653  cp ../vect_scal_mult/mult.py .
+ 1654  cp ../vect_scal_mult/test.cpp .
+ 1655  cp ../vect_scal_mult/Makefile .
+ 1656  make all
+ 1657  python3 mult.py > aie.mlir
+ 1658  make all
+ 1659  ./aie.mlir.prj/aiesim.sh 
+ 1660  make clean
+ 1661  clear
+ 1662  python3 mult_git.py > aie.mlir
+ 1663  make all
+ 1664  find ~/mlir-aie/ -name "aie_data_movement.cpp"
+ 1665  make all
+ 1666  aiecc.py aie.mlir --target vck190 --aie-generate-data-movement
+ 1667  aiecc.py -v aie.mlir --target vck190 --aie-generate-data-movement
+ 1668  make clean
+ 1669  aiecc.py -v aie.mlir --target vck190 --aie-generate-data-movement
+ 1670  make all
+ 1671  aiecc.py -help
+ 1672  make all
+ 1673  find . -name "aie_data_movement.cpp"
+ 1674  make all
+ 1675  ./aie.mlir.prj/aiesim.sh 
+ 1676  make all
+ 1677  source /tools/Xilinx/Vitis/2023.2/settings64.sh
+ 1678  source /opt/xilinx/xrt/setup.sh
+ 1679  cd mlir-aie/
+ 1680  source ironenv/bin/activate
+ 1681  source utils/env_setup.sh install/ llvm/install/
+ 1682  cd ccl_lab/vect_vect_mult/
+ 1683  make all
+ 1684  ./aie.mlir.prj/aiesim.sh
+ 1685  make all
+ 1686  ./aie.mlir.prj/aiesim.sh 
+ 1687  make all
+ 1688  ./aie.mlir.prj/aiesim.sh 
+ 1689  python3 mult_git.py > aie.mlir
+ 1690  make all
+ 1691  ./aie.mlir.prj/aiesim.sh 
+ 1692  make all
+ 1693  ./aie.mlir.prj/aiesim.sh 
+ 1694  make all
+ 1695  ./aie.mlir.prj/aiesim.sh 
+ 1696  make all
+ 1697  ./aie.mlir.prj/aiesim.sh 
+ 1698  python3 mult_git.py > aie.mlir
+ 1699  make all
+ 1700  ./aie.mlir.prj/aiesim.sh 
+ 1701  clear
+ 1702  make clean
+ 1703  clear
+ 1704  cd ../passthrough_dma
+ 1705  make all
+ 1706  ./aie.mlir.prj/aiesim.sh 
+ 1707  python3 passthrough_dma.py > aie.mlir
+ 1708  make all
+ 1709  ./aie.mlir.prj/aiesim.sh 
+ 1710  make all
+ 1711  ./aie.mlir.prj/aiesim.sh 
+ 1712  make all
+ 1713  ./aie.mlir.prj/aiesim.sh 
+ 1714  make all
+ 1715  ./aie.mlir.prj/aiesim.sh 
+ 1716  make all
+ 1717  ./aie.mlir.prj/aiesim.sh 
+ 1718  make all
+ 1719  ./aie.mlir.prj/aiesim.sh 
+ 1720  make all
+ 1721  ./aie.mlir.prj/aiesim.sh 
+ 1722  make clean
+ 1723  cd ../vect_vect_mult/
+ 1724  python3 mult_git.py > aie.mlir
+ 1725  make all
+ 1726  ./aie.mlir.prj/aiesim.sh 
+ 1727  python3 mult_git.py > aie.mlir
+ 1728  make all
+ 1729  ./aie.mlir.prj/aiesim.sh 
+ 1730  make all
+ 1731  ./aie.mlir.prj/aiesim.sh 
+ 1732  cd chatbot/
+ 1733  code .
+ 1734  ls
+ 1735  cd llvm-project/
+ 1736  ls
+ 1737  cd clang
+ 1738  ls
+ 1739  cd ../..
+ 1740  cd llvm-project/clang
+ 1741  ls
+ 1742  cd tools
+ 1743  ls
+ 1744  cd ..
+ 1745  ls
+ 1746  cd lib
+ 1747  ls
+ 1748  cd ..
+ 1749  ls
+ 1750  cd ..
+ 1751  ls
+ 1752  clear
+ 1753  ls
+ 1754  cd compiler-rt/
+ 1755  ls
+ 1756  cd lib
+ 1757  ls
+ 1758  cd ../..
+ 1759  find . -name clang
+ 1760  find . -name clang++
+ 1761  code mlir-aie/
+ 1762  source /tools/Xilinx/Vitis/2023.2/settings64.sh
+ 1763  source /opt/xilinx/xrt/setup.sh
+ 1764  cd mlir-aie/
+ 1765  source ironenv/bin/activate
+ 1766  source utils/env_setup.sh install/ llvm/install/
+ 1767  cd ccl_lab/vect_vect_mult/
+ 1768  make all
+ 1769  ./aie.mlir.prj/aiesim.sh 
+ 1770  make all
+ 1771  ./aie.mlir.prj/aiesim.sh 
+ 1772  make all
+ 1773  ./aie.mlir.prj/aiesim.sh 
+ 1774  python3 mult_git.py > aie.mlir
+ 1775  make all
+ 1776  ./aie.mlir.prj/aiesim.sh 
+ 1777  python3 mult_git.py > aie.mlir
+ 1778  make all
+ 1779  ./aie.mlir.prj/aiesim.sh 
+ 1780  make clean
+ 1781  clear
+ 1782  cd ../vector_scalar_add/
+ 1783  python3 placed.py > aie.mlir
+ 1784  make clean
+ 1785  cd ..
+ 1786  cd iron_local
+ 1787  cd iron_localmem/
+ 1788  python3 placed.py > aie.mlir
+ 1789  python3
+ 1790  python3 placed.py > aie.mlir
+ 1791  make all
+ 1792  ./aie.mlir.prj/aiesim.sh 
+ 1793  make clean
+ 1794  python placed.py > aie.mlir
+ 1795  make all
+ 1796  make clean
+ 1797  cd ../mlir_pres/
+ 1798  make all
+ 1799  clear
+ 1800  cd ../passthrough_kernel/
+ 1801  python3 pass_kernel.py > aie.mlir
+ 1802  make all
+ 1803  ./aie.mlir.prj/aiesim.sh 
+ 1804  python3 pass_kernel.py > aie.mlir
+ 1805  make all
+ 1806  reset
+ 1807  make clean
+ 1808  python3 pass_kernel.py > aie.mlir
+ 1809  make all
+ 1810  python3 pass_kernel.py > aie.mlir
+ 1811  make all
+ 1812  python3 pass_kernel.py > aie.mlir
+ 1813  make all
+ 1814  ./aie.mlir.prj/aiesim.sh 
+ 1815  make all
+ 1816  ./aie.mlir.prj/aiesim.sh 
+ 1817  make all
+ 1818  ./aie.mlir.prj/aiesim.sh 
+ 1819  make all
+ 1820  ./aie.mlir.prj/aiesim.sh 
+ 1821  make all
+ 1822  ./aie.mlir.prj/aiesim.sh 
+ 1823  make all
+ 1824  ./aie.mlir.prj/aiesim.sh 
+ 1825  python3 pass_kernel.py > aie.mlir
+ 1826  make all
+ 1827  ./aie.mlir.prj/aiesim.sh 
+ 1828  python3 pass_kernel.py > aie.mlir
+ 1829  make all
+ 1830  ./aie.mlir.prj/aiesim.sh 
+ 1831  make all
+ 1832  ./aie.mlir.prj/aiesim.sh 
+ 1833  make all
+ 1834  ./aie.mlir.prj/aiesim.sh 
+ 1835  make all
+ 1836  ./aie.mlir.prj/aiesim.sh 
+ 1837  make all
+ 1838  ./aie.mlir.prj/aiesim.sh 
+ 1839  make all
+ 1840  ./aie.mlir.prj/aiesim.sh 
+ 1841  make all
+ 1842  ./aie.mlir.prj/aiesim.sh 
+ 1843  make all
+ 1844  ./aie.mlir.prj/aiesim.sh 
+ 1845  python3 pass_kernel.py > aie.mlir
+ 1846  make all
+ 1847  ./aie.mlir.prj/aiesim.sh 
+ 1848  make all
+ 1849  ./aie.mlir.prj/aiesim.sh 
+ 1850  which clang++
+ 1851  make clean
+ 1852  clear
+ 1853  cp ~/mlir-aie/aie_kernels/generic/passThrough.cc .
+ 1854  clang++ passThrough.cc -o passThrough.cc.o
+ 1855  clang++ passThrough.cc -c -o passThrough.cc.o
+ 1856  find ~/mlir-aie/ -name "aie_kernels_utils.h"
+ 1857  ls ../aie_kernel_utils.h
+ 1858  find ~/mlir-aie/ -name aie_kernels_utils.h
+ 1859  which aie-opt
+ 1860  clang++ passThrough.cc -I~/mlir-aie/aie_kernels/ -o passThrough.cc.o
+ 1861  clang++ passThrough.cc -I ~/mlir-aie/aie_kernels/ -o passThrough.cc.o
+ 1862  clang++ passThrough.cc -I ~/mlir-aie/aie_kernels/generic/ -o passThrough.cc.o
+ 1863  find ~/mlir-aie -type f -name aie.hpp | grep aie_api
+ 1864  clang++ passThrough.cc -I ~/mlir-aie/aie_kernels/generic/ -I ~/mlir-aie/build/include/aie_api/ -o passThrough.cc.o
+ 1865  clang++ passThrough.cc -I ~/mlir-aie/aie_kernels/generic/ -I ~/mlir-aie/build/include/aie_api/aie.hpp -o passThrough.cc.o
+ 1866  clear
+ 1867  clang++ passThrough.cc   -I ~/mlir-aie/aie_kernels/generic/   -I ~/mlir-aie/build/include/   -o passThrough.cc.o
+ 1868  clear
+ 1869  ${PEANO_INSTALL_DIR}/bin/clang++ passThrough.cc   -O2 -std=c++20   --target=aie2p-none-unknown-elf   -I ~/mlir-aie/aie_kernels/generic/   -I ~/mlir-aie/build/include   -I ${AIEOPT_DIR}/include   -DNDEBUG   -o passThrough.cc.o
+ 1870  clang++ passThrough.cc   -O2 -std=c++20   --target=aie2p-none-unknown-elf   -I ~/mlir-aie/aie_kernels/generic/   -I ~/mlir-aie/build/include   -I ${AIEOPT_DIR}/include   -DNDEBUG   -o passThrough.cc.o
+ 1871  clang++ passThrough.cc   -O2 -std=c++20   --host-target=aarch64-linux-gnu   -I ~/mlir-aie/aie_kernels/generic/   -I ~/mlir-aie/build/include   -I ${AIEOPT_DIR}/include   -DNDEBUG   -o passThrough.cc.o
+ 1872  clang++ passThrough.cc   -O2 -std=c++20   --target=aarch64-linux-gnu   -I ~/mlir-aie/aie_kernels/generic/   -I ~/mlir-aie/build/include   -I ${AIEOPT_DIR}/include   -DNDEBUG   -o passThrough.cc.o
+ 1873  clang++ --version
+ 1874  which clang++
+ 1875  echo $PEANO_INSTALL_DIR 
+ 1876  find ~/mlir-aie/llvm/ -name clang++
+ 1877  which aiecc.py
+ 1878  cd ~/mlir-aie/install/bin/
+ 1879  ls
+ 1880  cd ~/mlir-aie/
+ 1881  find ~/mlir-aie -type f -name clang++ 2>/dev/null
+ 1882  find /opt /usr/local ~/mlir-aie -type f -name clang++ 2>/dev/null
+ 1883  which aiecc.py
+ 1884  cd ccl_lab/passthrough_kernel/
+ 1885  aiecc.py -c passThrough.cc -o passThrough.cc.o
+ 1886  /home/dwharker/mlir-aie/install/bin/clang++ --target=aie2-none-unknown-elf -O2 -std=c++20   -I ~/mlir-aie/aie_kernels/generic/   -I /home/dwharker/mlir-aie/install/include   -DNDEBUG   -c passThrough.cc -o passThrough.cc.o
+ 1887  find ~/mlir-aie -type f -executable -name clang++ 2>/dev/null
+ 1888  cd ~/mlir-aie/programming_examples/basic/
+ 1889  cd passthrough_kernel/
+ 1890  make
+ 1891  make build
+ 1892  make clean
+ 1893  clear
+ 1894  make build
+ 1895  make build/aie2_lineBased_8b_in1_size.mlir 
+ 1896  make clean
+ 1897  make build/
+ 1898  make build/%.cc.o
+ 1899  make npu2
+ 1900  make run_py
+ 1901  make clean
+ 1902  env use_placed=1 make
+ 1903  cd ~
+ 1904  cd mlir-aie/
+ 1905  ./utils/clone-llvm.sh
+ 1906  ./utils/build-llvm-local.sh
+ 1907  cd llvm/
+ 1908  ls
+ 1909  cd clang
+ 1910  ls
+ 1911  cd ..
+ 1912  find . -name clang++
+ 1913  cd ..
+ 1914  clear
+ 1915  ./utils/build-llvm-local.sh
+ 1916  cd llvm/
+ 1917  ls
+ 1918  cd install/
+ 1919  ls
+ 1920  cd bin
+ 1921  ls
+ 1922  cd ..
+ 1923  ls
+ 1924  cd lib
+ 1925  ls
+ 1926  cd cmake
+ 1927  clear
+ 1928  ls
+ 1929  cd llvm
+ 1930  ls
+ 1931  cd ../mlir
+ 1932  ls
+ 1933  cd ~/mlir-aie/llvm/install/
+ 1934  ls
+ 1935  cd ~/mlir-aie/programming_examples/basic/passthrough_kernel/
+ 1936  env use_placed=1 make
+ 1937  cd ~/mlir-aie/
+ 1938  ./utils/build-llvm-local.sh
+ 1939  cd programming_examples/basic/passthrough_kernel/
+ 1940  env use_placed=1 make
+ 1941  which clang++
+ 1942  /home/dwharker/mlir-aie/llvm/install/bin/clang++ --version
+ 1943  /home/dwharker/mlir-aie/llvm/install/bin/clang++ --target=aie2-none-unknown-elf -v -c dummy.cpp -o /dev/null
+ 1944  nano dummy.cpp
+ 1945  /home/dwharker/mlir-aie/llvm/install/bin/clang++ --target=aie2-none-unknown-elf -v -c dummy.cpp -o /dev/null
+ 1946  cd ~/mlir-aie/
+ 1947  clear
+ 1948  ./utils/build-llvm-local.sh
+ 1949  cd ..
+ 1950  git clone https://github.com/Xilinx/llvm-aie.git
+ 1951  cd mlir-aie/
+ 1952  ./utils/clone-llvm.sh --llvm-worktree ~/llvm-aie/
+ 1953  ./utils/clone-llvm.sh --llvm-worktree ~/llvm-aie
+ 1954  ./utils/clone-llvm.sh
+ 1955  ./utils/clone-llvm.sh --llvm-worktree ~/llvm-aie/
+ 1956  cd ../llvm-aie
+ 1957  git status
+ 1958  git log --online
+ 1959  git log --oneline
+ 1960  git rev-parse HEAD
+ 1961  cd ../mlir-aie/
+ 1962  ./utils/clone-llvm.sh --llvm-worktree ~/llvm-aie/
+ 1963  rm -rf llvm
+ 1964  ./utils/clone-llvm.sh --llvm-worktree ~/llvm-aie/
+ 1965  ./utils/build-llvm-local.sh
+ 1966  clear
+ 1967  ./utils/build-llvm-local.sh
+ 1968  ls
+ 1969  rm -rf llvm
+ 1970  ./utils/build-llvm-local.sh
+ 1971  ./utils/clone-llvm.sh --llvm-worktree ~/llvm-aie/
+ 1972  ls
+ 1973  cd llvm/
+ 1974  ls
+ 1975  cd install/
+ 1976  ls
+ 1977  cd ../..
+ 1978  rm -rf llvm
+ 1979  ls
+ 1980  ./utils/clone-llvm.sh --llvm-worktree ~/llvm-aie/
+ 1981  ./utils/build-llvm-local.sh
+ 1982  source /tools/Xilinx/Vitis/2023.2/settings64.sh
+ 1983  source /opt/xilinx/xrt/setup.sh
+ 1984  cd mlir-aie/
+ 1985  source ironenv/bin/activate
+ 1986  source utils/env_setup.sh install/ llvm/install/
+ 1987  cd ccl_lab/passthrough_kernel/
+ 1988  ls
+ 1989  make all
+ 1990  cd ~/mlir-aie/programming_examples/basic/passthrough_kernel/
+ 1991  make all
+ 1992  clear
+ 1993  make
+ 1994  env use_placed=1 make
+ 1995  source /tools/Xilinx/Vitis/2023.2/settings64.sh
+ 1996  source /opt/xilinx/xrt/setup.sh
+ 1997  cd mlir-aie/
+ 1998  source ironenv/bin/activate
+ 1999  source utils/env_setup.sh install/ llvm/install/
+ 2000  code .
+ 2001  cd ccl_lab/passthrough_kernel/
+ 2002  make kernel
+ 2003  echo $PEANO_INSTALL_DIR
+ 2004  make kernel
+ 2005  echo $AIE_SYSROOT
+ 2006  clear
+ 2007  make kernle
+ 2008  clear
+ 2009  make kernel
+ 2010  find ~/mlir-aie/ -name "stdlib.h"
+ 2011  make kernel
+ 2012  ~/mlir-aie/llvm/install/bin/clang++ --target=aie2p-none-unknown-elf -print-resource-dir
+ 2013  find ~/mlir-aie/llvm/ -name "stdlib.h"
+ 2014  make kernel
+ 2015  clear
+ 2016  history > terminal_history.txt
