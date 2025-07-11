@@ -26,6 +26,8 @@ def my_passthrough_kernel():
         ShimTile = tile(3, 0)
         ComputeTile2 = tile(3, 3)
 
+        lock_C = lock(ComputeTile2, lock_id=1)
+
         # AIE-array data movement with object fifos
         of_in = object_fifo("in", ShimTile, ComputeTile2, 2, line_ty)
         of_out = object_fifo("out", ComputeTile2, ShimTile, 2, line_ty)
@@ -33,14 +35,15 @@ def my_passthrough_kernel():
         # Set up compute tiles
 
         # Compute tile 2
-        @core(ComputeTile2)
+        @core(ComputeTile2, "passThrough.cc.o")
         def core_body():
-            for _ in range_(sys.maxsize):
-                elemOut = of_out.acquire(ObjectFifoPort.Produce, 1)
-                elemIn = of_in.acquire(ObjectFifoPort.Consume, 1)
-                passThroughLine(elemIn, elemOut, 32)
-                of_in.release(ObjectFifoPort.Consume, 1)
-                of_out.release(ObjectFifoPort.Produce, 1)
+            use_lock(lock_C, 0)
+            elemOut = of_out.acquire(ObjectFifoPort.Produce, 1)
+            elemIn = of_in.acquire(ObjectFifoPort.Consume, 1)
+            passThroughLine(elemIn, elemOut, 32)
+            of_in.release(ObjectFifoPort.Consume, 1)
+            of_out.release(ObjectFifoPort.Produce, 1)
+            use_lock(lock_C, 1)
 
 with mlir_mod_ctx() as ctx:
     my_passthrough_kernel()

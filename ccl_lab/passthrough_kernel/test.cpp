@@ -35,11 +35,10 @@ int main(int argc, char *argv[]) {
   printf("Start cores\n");
   mlir_aie_start_cores(_xaie);
 
-  if (mlir_aie_acquire_out_lock_0(_xaie, 0, 1000) == XAIE_OK)
-    printf("Acquired lock\n");
-
-  if (mlir_aie_acquire_in_cons_lock_0(_xaie, 0, 1000) == XAIE_OK)
-    printf("Acquired lock 2\n");
+  if (mlir_aie_acquire_lock_3_3(_xaie, 1, 1000) == XAIE_OK)
+    printf("Acquired lock33_0 (1) in tile (3,3). Done.\n");
+  else
+    printf("Timed out (1000) while trying to acquire lock33_0 (1).\n");
 
   mlir_aie_check("Passthrough check: ", mlir_aie_read_buffer_in_cons_buff_0(_xaie, 0), 5, errors);
 

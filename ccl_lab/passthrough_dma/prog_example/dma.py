@@ -23,34 +23,34 @@ def my_passthrough():
         ComputeTile2 = tile(2, 3)
         ComputeTile3 = tile(3, 4)
 
+        line_len = 16
+        line_ty = np.ndarray[(line_len,), np.dtype[np.int32]]
+
+        passThroughLine = external_func(
+            "passThroughLine", inputs=[line_ty, line_ty, np.int32]
+        )
+
         # AIE-array data movement with object fifos
-        of_out = object_fifo("out", ComputeTile, ComputeTile2, 1, np.ndarray[(10,), np.dtype[np.int32]])
-        of_back = object_fifo("back", ComputeTile2, ComputeTile3, 1, np.ndarray[(10,), np.dtype[np.int32]])
+        of_out = object_fifo("out", ComputeTile, ComputeTile2, 1, line_ty)
+        of_back = object_fifo("back", ComputeTile2, ComputeTile3, 1, line_ty)
 
         # Compute tile 2
         @core(ComputeTile)
         def core_body():
             elem = of_out.acquire(ObjectFifoPort.Produce, 1)
-            # elem_back = of_back.acquire(ObjectFifoPort.Consume, 1)
             elem[2] = 5
-            # elem_back[5] = 9
             of_out.release(ObjectFifoPort.Produce, 1)
-            # of_back.release(ObjectFifoPort.Consume, 1)
 
-
-        @core(ComputeTile2)
-        def core_body():
+        @core(ComputeTile2, "passThrough.cc.o")
+        def core_body2():
             elem_out = of_out.acquire(ObjectFifoPort.Consume, 1)
             elem_back = of_back.acquire(ObjectFifoPort.Produce, 1)
-            elem_out[1] = 4
-            for i in range_(10):
-                elem_back[i] = elem_out[i]
-            elem_back[6] = 3
+            passThroughLine(elem_out, elem_back, line_len)
             of_out.release(ObjectFifoPort.Consume, 1)
             of_back.release(ObjectFifoPort.Produce, 1)
 
         @core(ComputeTile3)
-        def core_body():
+        def core_body3():
             elem_rec = of_back.acquire(ObjectFifoPort.Consume, 1)
             elem_rec[5] = 9
             of_back.release(ObjectFifoPort.Consume, 1)

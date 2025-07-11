@@ -14,8 +14,7 @@ def mlir_aie_design():
         @core(A)
         def core_body():
             elem = of_in.acquire(ObjectFifoPort.Produce, 1)
-            for i in range_(195):
-                elem[i] += 5
+            elem[11] += 5
             of_in.release(ObjectFifoPort.Produce, 1)
 
 

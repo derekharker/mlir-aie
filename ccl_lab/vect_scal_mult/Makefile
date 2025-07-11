@@ -40,7 +40,8 @@ CXXFLAGS := --sysroot=$(VITIS_SYSROOT) -static-libstdc++
 # === Targets ===
 elf:
 	aiecc.py -j4 -v --sysroot=$(VITIS_SYSROOT) --host-target=aarch64-linux-gnu $(MLIR_FILE) \
-	$(AARCH64_INCLUDES) $(AARCH64_LIBS) $(TEST_PATH) -I$(MLIR_AIE_DIR)/aie_kernels/generic/ -o host.exe
+	$(AARCH64_INCLUDES) $(AARCH64_LIBS) $(TEST_PATH) -I$(MLIR_AIE_DIR)/aie_kernels/generic/ -o \
+  host.exe vect_scale_mult.o
 
 sim:
 	aiecc.py -j4 --xchesscc --xbridge --aiesim $(MLIR_FILE) \

@@ -37,13 +37,13 @@ int main(int argc, char *argv[]) {
   mlir_aie_start_cores(_xaie);
 
   // Wait for lock14_0 to indicate tile(1,4) is done
-  if (mlir_aie_acquire_in_lock_0(_xaie, 1, 1000) == XAIE_OK)
+  if (mlir_aie_acquire_in_cons_lock_0(_xaie, 1, 1000) == XAIE_OK)
     printf("Acquired lock24_0. Done.\n");
   else
     printf("Timed out (1000) while trying to acquire lock24_0.\n");
 
-  for(uint16_t i = 0; i < 195; i++)
-    mlir_aie_check("First core:", mlir_aie_read_buffer_in_cons_buff_0(_xaie, i), 5, errors);
+
+  mlir_aie_check("First core:", mlir_aie_read_buffer_in_cons_buff_0(_xaie, 11), 5, errors);
 
   // Print Pass/Fail result of our test
   int res = 0;

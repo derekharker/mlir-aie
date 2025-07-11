@@ -6,15 +6,12 @@ module {
     %core_1_3 = aie.core(%tile_1_3) {
       %0 = aie.objectfifo.acquire @in(Produce, 1) : !aie.objectfifosubview<memref<256xi32>>
       %1 = aie.objectfifo.subview.access %0[0] : !aie.objectfifosubview<memref<256xi32>> -> memref<256xi32>
-      %c0 = arith.constant 0 : index
-      %c195 = arith.constant 195 : index
-      %c1 = arith.constant 1 : index
-      scf.for %arg0 = %c0 to %c195 step %c1 {
-        %2 = memref.load %1[%arg0] : memref<256xi32>
-        %c5_i32 = arith.constant 5 : i32
-        %3 = arith.addi %2, %c5_i32 : i32
-        memref.store %3, %1[%arg0] : memref<256xi32>
-      }
+      %c11 = arith.constant 11 : index
+      %2 = memref.load %1[%c11] : memref<256xi32>
+      %c5_i32 = arith.constant 5 : i32
+      %3 = arith.addi %2, %c5_i32 : i32
+      %c11_0 = arith.constant 11 : index
+      memref.store %3, %1[%c11_0] : memref<256xi32>
       aie.objectfifo.release @in(Produce, 1)
       aie.end
     }

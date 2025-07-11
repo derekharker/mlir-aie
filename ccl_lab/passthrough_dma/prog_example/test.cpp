@@ -35,21 +35,27 @@ int main(int argc, char *argv[]) {
   int errors = 0;
 
   // Clear buffer data memory
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 16; i++) {
     mlir_aie_write_buffer_out_buff_0(_xaie, i, 0);
-    mlir_aie_write_buffer_back_buff_0(_xaie, i, 0);
+    mlir_aie_write_buffer_back_buff_0(_xaie, i, 2);
   }
+
+  mlir_aie_check("Before start cores: ", mlir_aie_read_buffer_out_buff_0(_xaie, 8), 0, errors);
 
   mlir_aie_start_cores(_xaie);
 
-  if (mlir_aie_acquire_out_cons_lock_0(_xaie, 0, 1000) == XAIE_OK)
+  if (mlir_aie_acquire_out_cons_lock_0(_xaie, 1, 2000) == XAIE_OK)
     printf("Acquired lock 1\n");
-
-  if (mlir_aie_acquire_back_lock_0(_xaie, 0, 2000) == XAIE_OK)
+  else
+    printf("Did not get lock 1\n");
+  if (mlir_aie_release_out_cons_lock_0(_xaie, 0, 2000) == XAIE_OK)
     printf("Acquired lock 2\n");
-
-  if (mlir_aie_acquire_back_cons_lock_0(_xaie, 0, 3000) == XAIE_OK)
+  else
+    printf("Did not get lock 2\n");
+  if (mlir_aie_release_back_cons_lock_0(_xaie, 0, 2000) == XAIE_OK)
     printf("Acquired lock 3\n");
+  else
+    printf("Did not get lock 3\n");
 
 
   mlir_aie_check("After start cores: ", mlir_aie_read_buffer_out_cons_buff_0(_xaie, 2)
@@ -60,8 +66,11 @@ int main(int argc, char *argv[]) {
   mlir_aie_check("After start cores: ", mlir_aie_read_buffer_back_cons_buff_0(_xaie, 1)
                     , 4, errors);
 
-  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_back_cons_buff_0(_xaie, 6)
-                    , 3, errors);
+  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_back_cons_buff_0(_xaie, 2)
+                    , 5, errors);
+
+  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_back_buff_0(_xaie, 5)
+                    , 9, errors);
 
   // Print Pass/Fail result of our test
   int res = 0;
