@@ -25,21 +25,23 @@ int main(int argc, char *argv[]) {
   mlir_aie_initialize_locks(_xaie);
 
   // Clear buffer data memory
-  for (int i = 0; i < 1024; i++) {
+  for (int i = 0; i < 32; i++) {
     mlir_aie_write_buffer_A(_xaie, i, i);
-    mlir_aie_write_buffer_B(_xaie, i, -1);
+    mlir_aie_write_buffer_B(_xaie, i, 0);
   }
 
   // Helper function to enable all AIE cores
   printf("Start cores\n");
   mlir_aie_start_cores(_xaie);
 
-  if (mlir_aie_acquire_lock(_xaie, 1, 2000) == XAIE_OK)
+  if (mlir_aie_acquire_lock(_xaie, 1, 2000) != XAIE_OK)
     printf("Acquired lock\n");
   else
     printf("Timed out while trying to acquire lock.\n");
 
-  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_B(_xaie, 8), 8, errors);
+  for (int i = 0; i < 32; i++) {
+    mlir_aie_check("After start cores: ", mlir_aie_read_buffer_B(_xaie, i), i, errors);
+  }
 
   // Print Pass/Fail result of our test
   int res = 0;

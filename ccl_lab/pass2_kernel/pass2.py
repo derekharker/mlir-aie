@@ -10,7 +10,7 @@ def passthr():
         t = tile(1, 4)
         r = tile(1, 5)
 
-        input_type = np.ndarray[(1024,), np.dtype[np.int32]]
+        input_type = np.ndarray[(4,8), np.dtype[np.int32]]
 
         # Buffer declarations (no symbol names)
         A = buffer(t, name="A", datatype=input_type)
