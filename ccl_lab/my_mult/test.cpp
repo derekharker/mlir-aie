@@ -15,7 +15,7 @@ using namespace Eigen;
 #include "aie_inc.cpp"
 
 int main(int argc, char *argv[]) {
-  printf("Matrix Multiply test start.\n");
+  printf("Matrix Multiply 2 test start.\n");
 
   int errors = 0;
 
@@ -28,9 +28,8 @@ int main(int argc, char *argv[]) {
 
   // Clear buffer data memory
   for (int i = 0; i < 1024; i++) {
-    mlir_aie_write_buffer_A(_xaie, i, 3);
+    mlir_aie_write_buffer_A(_xaie, i, 1);
     mlir_aie_write_buffer_B(_xaie, i, i);
-    mlir_aie_write_buffer_acc(_xaie, i, 4);
     mlir_aie_write_buffer_C(_xaie, i, 0);
   }
 
@@ -39,7 +38,7 @@ int main(int argc, char *argv[]) {
   mlir_aie_start_cores(_xaie);
 
   // Wait for lock14_0 to indicate tile(1,4) is done
-  if (mlir_aie_acquire_lk(_xaie, 1, 3000) == XAIE_OK)
+  if (mlir_aie_acquire_lock(_xaie, 1, 3000) == XAIE_OK)
     printf("Acquired lock\n");
   else
     printf("Timed out while trying to acquire lock.\n");
@@ -50,13 +49,11 @@ int main(int argc, char *argv[]) {
   // Reconstruct A, B, acc from initial values
   int32_t B_host[dim * dim];
   int32_t A_host[dim * dim];
-  int32_t acc_host[dim * dim];
   int32_t C_expected[dim * dim];
 
   for (int i = 0; i < dim * dim; i++) {
-    A_host[i] = 3;
+    A_host[i] = 1;
     B_host[i] = i;
-    acc_host[i] = 4;
     C_expected[i] = 0;
   }
 
@@ -65,10 +62,9 @@ int main(int argc, char *argv[]) {
 
   Map<Mat> A_mat(A_host);
   Map<Mat> B_mat(B_host);
-  Map<Mat> acc_mat(acc_host);
   Map<Mat> C_exp_mat(C_expected);
 
-  C_exp_mat = A_mat * B_mat + acc_mat;
+  C_exp_mat = A_mat * B_mat;
 
 
   // Read output from AIE buffer and compare
@@ -95,6 +91,6 @@ int main(int argc, char *argv[]) {
   // Teardown and cleanup of AIE array
   mlir_aie_deinit_libxaie(_xaie);
 
-  printf("Matrix Multiply test done.\n");
+  printf("Matrix Multiply 2 test done.\n");
   return res;
 }

@@ -4,10 +4,9 @@ VITIS_SYSROOT := /tools/Xilinx/Vitis/2023.2/gnu/aarch64/lin/aarch64-linux/aarch6
 
 # Change this line to switch test mode
 TEST_FILE := test.cpp
-# TEST_FILE := test_perf.cpp
 
 # === Derived Paths ===
-COMMON_SRC := $(MLIR_AIE_DIR)/ccl_lab/matrix_mult
+COMMON_SRC := $(MLIR_AIE_DIR)/ccl_lab/my_mult
 MLIR_FILE := $(COMMON_SRC)/aie.mlir
 TEST_PATH := $(COMMON_SRC)/$(TEST_FILE)
 EIGEN_PATH := -I/usr/include/eigen3
@@ -24,7 +23,7 @@ AARCH64_LIBS := \
   -L$(MLIR_AIE_DIR)/install/runtime_lib/aarch64/test_lib/lib \
   -L$(MLIR_AIE_DIR)/install/runtime_lib/aarch64/xaiengine/lib \
   -L$(VITIS_SYSROOT)/usr/lib/aarch64-xilinx-linux/12.2.0 \
-  -ltest_lib -lxaiengine
+-lxaiengine -ltest_lib
 
 X86_INCLUDES := -I$(MLIR_AIE_DIR)/install/runtime_lib/x86_64/test_lib/include
 X86_LIBS := -L$(MLIR_AIE_DIR)/install/runtime_lib/x86_64/test_lib/lib -ltest_lib
@@ -33,7 +32,12 @@ X86_LIBS := -L$(MLIR_AIE_DIR)/install/runtime_lib/x86_64/test_lib/lib -ltest_lib
 CXX := aarch64-linux-gnu-g++
 CXXFLAGS := --sysroot=$(VITIS_SYSROOT) -static-libstdc++
 
-# === Targets ===
+# === Targets === -Di32_i32_ONLY
+kernel:
+	xchesscc_wrapper aie -p me \
+	-I /home/dwharker/mlir-aie/install/include -Di16_i32_ONLY -DDIM_M=32 \
+	-DDIM_K=32 -DDIM_N=32 -c ../../aie_kernels/aie2/mm.cc -o mm.o
+
 elf:
 	aiecc.py -j4 -v --sysroot=$(VITIS_SYSROOT) --host-target=aarch64-linux-gnu $(MLIR_FILE) \
 	$(AARCH64_INCLUDES) $(AARCH64_LIBS) $(TEST_PATH) -o host.exe
