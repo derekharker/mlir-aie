@@ -23,22 +23,21 @@ def vector_scal():
         )
 
         # Tile declarations
-        ShimTile = tile(3, 3)
-        ComputeTile2 = tile(0, 2)
+        CTile = tile(3, 3)
 
         # AIE-array data movement with object fifos
-        of_in = object_fifo("in", ShimTile, ComputeTile2, 2, size)
-        of_out = object_fifo("out", ComputeTile2, ShimTile, 2, size)
+        buffA = buffer(CTile, name="A", datatype=size)
+        buffB = buffer(CTile, name="B", datatype=size)
+
+        lkTile = lock(CTile, lock_id=1)
 
 
         # Compute tile 2
-        @core(ComputeTile2, "vect_scale_mult.o")
+        @core(CTile, "vect_scale_mult.o")
         def core_body():  
-            elemIn = of_in.acquire(ObjectFifoPort.Consume, 1)
-            elemOut = of_out.acquire(ObjectFifoPort.Produce, 1)
-            vector_scalar_mul_aie_scalar(elemIn, elemOut, 20, 64)
-            of_in.release(ObjectFifoPort.Consume, 1)
-            of_out.release(ObjectFifoPort.Produce, 1)
+            use_lock(lkTile, 0)
+            vector_scalar_mul_aie_scalar(buffA, buffB, 20, 64)
+            use_lock(lkTile, 1)
             
 
 with mlir_mod_ctx() as ctx:

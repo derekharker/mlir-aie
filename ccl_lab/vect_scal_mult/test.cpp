@@ -37,29 +37,19 @@ int main(int argc, char *argv[]) {
 
   // Clear buffer data memory
   for (int i = 0; i < 64; i++) {
-    mlir_aie_write_buffer_in_buff_0(_xaie, i, 10);
-    mlir_aie_write_buffer_out_buff_0(_xaie, i, 5);
+    mlir_aie_write_buffer_A(_xaie, i, i);
+    mlir_aie_write_buffer_B(_xaie, i, 0);
   }
 
-  mlir_aie_check("Before start: ", mlir_aie_read_buffer_out_buff_0(_xaie, 3), 5, errors);
-  mlir_aie_check("Before start: ", mlir_aie_read_buffer_in_buff_0(_xaie, 3), 10, errors);
-
-  mlir_aie_acquire_in_lock_0(_xaie, 0, 1000);
-  mlir_aie_release_in_lock_0(_xaie, 0, 1000);
-
-  mlir_aie_acquire_out_lock_0(_xaie, 0, 1000);
-  mlir_aie_release_out_lock_0(_xaie, 0, 1000);
-
-
-  // Helper function to enable all AIE cores
   printf("Start cores\n");
   mlir_aie_start_cores(_xaie);
 
-  usleep(10000);
+  if (mlir_aie_acquire_lock(_xaie, 1, 1000) == XAIE_OK) {
+    printf("Acquired lock\n");
+  }
 
-	mlir_aie_check("Out buffer: ", mlir_aie_read_buffer_out_buff_0(_xaie, 3), 10, errors);
-
-
+  for (int i = 0; i < 64; i++)
+	  mlir_aie_check("Out buffer: ", mlir_aie_read_buffer_B(_xaie, i), i * 20, errors);
   
   // Print Pass/Fail result of our test
   int res = 0;
