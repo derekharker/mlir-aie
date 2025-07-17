@@ -26,28 +26,24 @@ int main(int argc, char *argv[]) {
 
   // Clear buffer data memory
   for (int i = 0; i < 16; i++) {
-    mlir_aie_write_buffer_A_buff_0(_xaie, i, i);
-    mlir_aie_write_buffer_B(_xaie, i, 3);
+    mlir_aie_write_buffer_A_buff_0(_xaie, i, 0);
+    mlir_aie_write_buffer_B(_xaie, i, 0);
   }
+
+  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_A_buff_0(_xaie, 7), 0, errors);
 
   // Helper function to enable all AIE cores
   printf("Start cores\n");
   mlir_aie_start_cores(_xaie);
 
-  if (mlir_aie_acquire_lock(_xaie, 1, 2000) == XAIE_OK)
-    printf("Acquired lock\n");
-  else
-    printf("Timed out while trying to acquire lock.\n");
+  // printf("Error Number: %d\n", mlir_aie_acquire_lock_a34_8(_xaie, 1, 1000));
 
-  if (mlir_aie_acquire_A_cons_lock_0(_xaie, 0, 2000) == XAIE_OK)
-    printf("Acquired lock 2\n");
-  else
-    printf("Timed out while trying to acquire lock 2.\n");  
+  // mlir_aie_release_lock_a34_8(_xaie, 1, 1000);  // force unlock
+
+  // Error 19, Lock Result Failed
+  if (mlir_aie_acquire_lock_a34_8(_xaie, 1, 2000) == XAIE_LOCK_RESULT_FAILED) printf("lock result failed\n");
     
-
-  for (int i = 0; i < 16; i++) {
-    mlir_aie_check("After start cores: ", mlir_aie_read_buffer_B(_xaie, i), i, errors);
-  }
+  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_B(_xaie, 7), 4, errors);
 
   // Print Pass/Fail result of our test
   int res = 0;
