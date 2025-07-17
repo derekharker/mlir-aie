@@ -23,10 +23,10 @@ def my_passthrough_kernel():
         )
 
         # Tile declarations
-        ShimTile = tile(3, 0)
+        ShimTile = tile(3, 5)
         ComputeTile2 = tile(3, 3)
 
-        lock_C = lock(ComputeTile2, lock_id=1)
+        lock_C = lock(ComputeTile2, lock_id=1, sym_name = "lock")
 
         # AIE-array data movement with object fifos
         of_in = object_fifo("in", ShimTile, ComputeTile2, 2, line_ty)

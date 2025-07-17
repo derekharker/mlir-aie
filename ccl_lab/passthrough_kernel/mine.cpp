@@ -1,0 +1,109 @@
+//===----------------------------------------------------------------------===//
+
+#include "test_library.h"
+#include <cassert>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <sys/mman.h>
+#include <thread>
+#include <unistd.h>
+#include <xaiengine.h>
+
+#include "aie_inc.cpp"
+
+int main(int argc, char *argv[]) {
+  printf("Passthrough Kernel test start.\n");
+
+  aie_libxaie_ctx_t *_xaie = mlir_aie_init_libxaie();
+  mlir_aie_init_device(_xaie);
+  mlir_aie_configure_cores(_xaie);
+  mlir_aie_configure_switchboxes(_xaie);
+  mlir_aie_configure_dmas(_xaie);
+  mlir_aie_initialize_locks(_xaie);
+
+  mlir_aie_start_mem(_xaie, 3, 5);
+  mlir_aie_start_mem(_xaie, 3, 3);
+
+
+  int errors = 0;
+
+  for (int i = 0; i < 32; i++) {
+    mlir_aie_write_buffer_in_buff_1(_xaie, i, 5);
+    mlir_aie_write_buffer_out_buff_1(_xaie, i, 0);
+  }
+
+  // Helper function to enable all AIE cores
+  printf("Start cores\n");
+  mlir_aie_start_cores(_xaie);
+
+  if (mlir_aie_acquire_lock(_xaie, 1, 200) == XAIE_OK)
+    printf("Acquired lock. Done.\n");
+  else
+    printf("Timed out (1000) while trying to acquire lock.\n");
+
+  if (mlir_aie_acquire_out_cons_lock_0(_xaie, 1, 200) == XAIE_OK)
+    printf("Acquired lock. Done.\n");
+  else
+    printf("Timed out (1000) while trying to acquire lock.\n");
+  
+  if (mlir_aie_acquire_out_cons_lock_1(_xaie, 1, 200) == XAIE_OK)
+    printf("Acquired lock. Done.\n");
+  else
+    printf("Timed out (1000) while trying to acquire lock.\n");
+
+  if (mlir_aie_acquire_out_lock_0(_xaie, 1, 200) == XAIE_OK)
+    printf("Acquired lock. Done.\n");
+  else
+    printf("Timed out (1000) while trying to acquire lock.\n");
+
+  if (mlir_aie_acquire_out_lock_1(_xaie, 1, 200) == XAIE_OK)
+    printf("Acquired lock. Done.\n");
+  else
+    printf("Timed out (1000) while trying to acquire lock.\n");
+
+  if (mlir_aie_acquire_in_cons_lock_0(_xaie, 1, 200) == XAIE_OK)
+    printf("Acquired lock. Done.\n");
+  else
+    printf("Timed out (1000) while trying to acquire lock.\n");
+
+  if (mlir_aie_acquire_in_cons_lock_1(_xaie, 1, 200) == XAIE_OK)
+    printf("Acquired lock. Done.\n");
+  else
+    printf("Timed out (1000) while trying to acquire lock.\n");
+
+  if (mlir_aie_acquire_in_lock_0(_xaie, 1, 200) == XAIE_OK)
+    printf("Acquired lock. Done.\n");
+  else
+    printf("Timed out (1000) while trying to acquire lock.\n");
+
+  if (mlir_aie_acquire_in_lock_1(_xaie, 1, 200) == XAIE_OK)
+    printf("Acquired lock. Done.\n");
+  else
+    printf("Timed out (1000) while trying to acquire lock.\n");
+
+  sleep(1);
+
+  mlir_aie_check("Passthrough check: ", mlir_aie_read_buffer_in_cons_buff_0(_xaie, 0), 5, errors);
+
+  mlir_aie_check("Passthrough check: ", mlir_aie_read_buffer_out_buff_1(_xaie, 0), 5, errors);
+
+
+  // Print Pass/Fail result of our test
+  int res = 0;
+  if (!errors) {
+    printf("PASS!\n");
+    res = 0;
+  } else {
+    printf("Fail!\n");
+    res = -1;
+  }
+
+  // Teardown and cleanup of AIE array
+  mlir_aie_deinit_libxaie(_xaie);
+
+  printf("Passthrough Kernel test done.\n");
+  return res;
+}

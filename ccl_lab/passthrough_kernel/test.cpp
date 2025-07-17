@@ -1,63 +1,68 @@
+//===- test.cpp -------------------------------------------------*- C++ -*-===//
+//
+// This file is licensed under the Apache License v2.0 with LLVM Exceptions.
+// See https://llvm.org/LICENSE.txt for license information.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+//
+// Copyright (C) 2023, Advanced Micro Devices, Inc.
+//
 //===----------------------------------------------------------------------===//
 
-#include "test_library.h"
-#include <cassert>
-#include <cmath>
-#include <cstdio>
+#include "xrt_test_wrapper.h"
+#include <cstdint>
 #include <cstring>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <sys/mman.h>
-#include <thread>
-#include <unistd.h>
-#include <xaiengine.h>
+#include <iostream>
 
-#include "aie_inc.cpp"
+#ifndef DATATYPES_USING_DEFINED
+#define DATATYPES_USING_DEFINED
+using DATATYPE_IN1 = std::int32_t;
+using DATATYPE_OUT = std::int32_t;
+#endif
 
-int main(int argc, char *argv[]) {
-  printf("Passthrough Kernel test start.\n");
+// Size of buffers (in bytes)
+#define IN1_SIZE (32 * sizeof(DATATYPE_IN1))
+#define OUT_SIZE (32 * sizeof(DATATYPE_OUT))
 
-  aie_libxaie_ctx_t *_xaie = mlir_aie_init_libxaie();
-  mlir_aie_init_device(_xaie);
-  mlir_aie_configure_cores(_xaie);
-  mlir_aie_configure_switchboxes(_xaie);
-  mlir_aie_configure_dmas(_xaie);
-  mlir_aie_initialize_locks(_xaie);
+// Initialize Input buffer 1
+void initialize_bufIn1(DATATYPE_IN1 *bufIn1, int SIZE) {
+  for (int i = 0; i < SIZE; i++)
+    bufIn1[i] = i + 5; // Or any pattern you'd like
+}
 
+// Initialize Output buffer
+void initialize_bufOut(DATATYPE_OUT *bufOut, int SIZE) {
+  memset(bufOut, 0, SIZE * sizeof(DATATYPE_OUT));
+}
+
+// Functional correctness verifier
+int verify_passthrough_kernel(DATATYPE_IN1 *bufIn1, DATATYPE_OUT *bufOut,
+                              int SIZE, int verbosity) {
   int errors = 0;
-
-  for (int i = 0; i < 256; i++) {
-    mlir_aie_write_buffer_in_cons_buff_0(_xaie, i, 5);
-    mlir_aie_write_buffer_out_buff_0(_xaie, i, 0);
+  for (int i = 0; i < SIZE; i++) {
+    int32_t ref = bufIn1[i];
+    int32_t test = bufOut[i];
+    if (test != ref) {
+      if (verbosity >= 1)
+        std::cout << "Error at index " << i << ": " << test << " != " << ref
+                  << std::endl;
+      errors++;
+    } else if (verbosity >= 2) {
+      std::cout << "Correct at index " << i << ": " << test << " == " << ref
+                << std::endl;
+    }
   }
+  return errors;
+}
 
-  // Helper function to enable all AIE cores
-  printf("Start cores\n");
-  mlir_aie_start_cores(_xaie);
+// Main function
+int main(int argc, const char *argv[]) {
+  constexpr int IN1_VOLUME = IN1_SIZE / sizeof(DATATYPE_IN1);
+  constexpr int OUT_VOLUME = OUT_SIZE / sizeof(DATATYPE_OUT);
 
-  if (mlir_aie_acquire_lock_3_3(_xaie, 1, 1000) == XAIE_OK)
-    printf("Acquired lock33_0 (1) in tile (3,3). Done.\n");
-  else
-    printf("Timed out (1000) while trying to acquire lock33_0 (1).\n");
+  args myargs = parse_args(argc, argv);
 
-  mlir_aie_check("Passthrough check: ", mlir_aie_read_buffer_in_cons_buff_0(_xaie, 0), 5, errors);
-
-  mlir_aie_check("Passthrough check: ", mlir_aie_read_buffer_out_buff_0(_xaie, 0), 5, errors);
-
-
-  // Print Pass/Fail result of our test
-  int res = 0;
-  if (!errors) {
-    printf("PASS!\n");
-    res = 0;
-  } else {
-    printf("Fail!\n");
-    res = -1;
-  }
-
-  // Teardown and cleanup of AIE array
-  mlir_aie_deinit_libxaie(_xaie);
-
-  printf("Passthrough Kernel test done.\n");
+  int res = setup_and_run_aie<DATATYPE_IN1, DATATYPE_OUT, initialize_bufIn1,
+                              initialize_bufOut, verify_passthrough_kernel>(
+      IN1_VOLUME, OUT_VOLUME, myargs);
   return res;
 }
