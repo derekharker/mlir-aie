@@ -12,10 +12,8 @@
 
 #include "aie_inc.cpp"
 
-int main(int argc, char *argv[]) {
-  printf("Passthrough 2 test start.\n");
-
-  int errors = 0;
+int main(int argc, const char *argv[]) {
+  printf("Convolution test start.\n");
 
   aie_libxaie_ctx_t *_xaie = mlir_aie_init_libxaie();
   mlir_aie_init_device(_xaie);
@@ -24,21 +22,27 @@ int main(int argc, char *argv[]) {
   mlir_aie_configure_dmas(_xaie);
   mlir_aie_initialize_locks(_xaie);
 
-  // Clear buffer data memory
-  for (int i = 0; i < 16; i++) {
-    mlir_aie_write_buffer_A_buff_0(_xaie, i, 0);
-    mlir_aie_write_buffer_B(_xaie, i, 0);
+  for (int i = 0; i < 5; i++) {
+    mlir_aie_write_buffer_buff1(_xaie, i, i+3);
+  }
+  for (int i = 0; i < 2; i++) {
+    mlir_aie_write_buffer_buff2(_xaie, i, 3);
   }
 
-  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_A_buff_0(_xaie, 7), 0, errors);
-
-  // Helper function to enable all AIE cores
   printf("Start cores\n");
   mlir_aie_start_cores(_xaie);
 
-  // Error 19, Lock Result Failed XAIE_LOCK
-    
-  mlir_aie_check("After start cores: ", mlir_aie_read_buffer_B(_xaie, 7), 4, errors);
+  int errors = 0;
+
+  int output[4];
+
+  if (mlir_aie_acquire_lock1(_xaie, 1, 1000) == XAIE_OK)
+    printf("Acquired lock1. Done.\n");
+
+  for (int i = 0; i < 4; i++) {
+    output[i] = mlir_aie_read_buffer_buff_out(_xaie, i);
+    printf("Output[%d] = %d \n", i, output[i]);
+  }
 
   // Print Pass/Fail result of our test
   int res = 0;
@@ -53,6 +57,6 @@ int main(int argc, char *argv[]) {
   // Teardown and cleanup of AIE array
   mlir_aie_deinit_libxaie(_xaie);
 
-  printf("Passthrough 2 test done.\n");
+  printf("Convolution test done.\n");
   return res;
 }
